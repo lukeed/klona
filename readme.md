@@ -122,6 +122,7 @@ Benchmark:
 
 * [dlv](https://github.com/developit/dlv) – safely **read** from deep properties in 120 bytes
 * [dset](https://github.com/lukeed/dset) – safely **write** into deep properties in 160 bytes
+* [dequal](https://github.com/lukeed/dequal) – safely check for deep equality in 247 bytes
 
 
 ## License
