@@ -7,7 +7,7 @@
     <img src="https://badgen.now.sh/npm/v/klona" alt="version" />
   </a>
   <a href="https://travis-ci.org/lukeed/klona">
-    <img src="https://badgen.now.sh/travis/lukeed/klona" alt="travis" />
+    <img src="https://badgen.net/github/status/lukeed/klona" alt="status" />
   </a>
   <a href="https://npmjs.org/package/klona">
     <img src="https://badgen.now.sh/npm/dm/klona" alt="downloads" />
@@ -26,7 +26,7 @@
 * Deep clone / recursive copies
 * Safety with `Date`s and `RegExp`s
 
-Unlike a "shallow copy" (eg, `Object.assign`), a "deep clone" recursively traverses a source input and copies its _values_ &mdash; instead of _references_ to its values &mdash; into a new instance of that input. The result is a structurally equivalent carbon copy that operates independently of the original source.
+Unlike a "shallow copy" (eg, `Object.assign`), a "deep clone" recursively traverses a source input and copies its _values_ &mdash; instead of _references_ to its values &mdash; into a new instance of that input. The result is a structurally equivalent clone that operates independently of the original source and controls its own values.
 
 Additionally, this module is delivered as:
 
@@ -35,7 +35,7 @@ Additionally, this module is delivered as:
 * **UMD**: [`dist/klona.min.js`](https://unpkg.com/klona)
 
 > **Why "klona"?** It's "clone" in Swedish.<br>
-> **Why the sheep, man?** Because [Dolly](https://en.wikipedia.org/wiki/Dolly_(sheep)).
+> **What's with the sheep?** [Dolly](https://en.wikipedia.org/wiki/Dolly_(sheep)).
 
 
 ## Install
