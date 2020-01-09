@@ -1,4 +1,6 @@
 export default function klona(x) {
+	if (typeof x !== 'object') return x;
+
 	var k, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
