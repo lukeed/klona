@@ -111,6 +111,21 @@ test('map', t => {
 });
 
 
+test('null', t => {
+	let input = null;
+	let output = klona(input);
+
+	t.deepEqual(input, output);
+
+	output = 1;
+	t.is(input, null);
+
+	input = 123;
+	t.is(output, 1);
+
+	t.end();
+});
+
 
 test('number', t => {
 	let input = 123;
