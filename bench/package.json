@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "benchmark": "2.1.4",
+    "clone-deep": "4.0.1",
+    "deep-copy": "1.4.2",
+    "deepcopy": "2.0.0",
+    "fast-clone": "1.5.13",
+    "lodash.clonedeep": "4.5.0"
+  }
+}
