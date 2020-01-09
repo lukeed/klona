@@ -81,6 +81,23 @@ test('function', t => {
 });
 
 
+test('map', t => {
+	const input = new Map();
+	const output = klona(input);
+
+	t.deepEqual(input, output);
+
+	output.set('hello', 'world');
+	t.is(input.get('hello'), undefined);
+
+	input.set('foo', 'bar');
+	t.is(output.get('foo'), undefined);
+
+	t.end();
+});
+
+
+
 test('number', t => {
 	let input = 123;
 	let output = klona(input);
@@ -170,6 +187,22 @@ test('regexp :: state', t => {
 	t.is(index, 3);
 	t.is(input.lastIndex, index);
 	t.is(output.lastIndex, index);
+
+	t.end();
+});
+
+
+test('set', t => {
+	const input = new Set('hello');
+	const output = klona(input);
+
+	t.deepEqual(input, output);
+
+	output.add('world');
+	t.false(input.has('world'));
+
+	input.add('foobar');
+	t.false(output.has('foobar'));
 
 	t.end();
 });
