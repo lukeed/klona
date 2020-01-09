@@ -29,5 +29,9 @@ export default function klona(x) {
 		return tmp;
 	}
 
+	if (str.slice(-6) === 'Array]') {
+		return new x.constructor(x);
+	}
+
 	return x;
 }

@@ -49,6 +49,20 @@ test('boolean', t => {
 });
 
 
+test('class', t => {
+	class Foobar {}
+	const input = new Foobar();
+	const output = klona(input);
+
+	t.deepEqual(input, output);
+
+	output.foobar = 123;
+	t.not(input.foobar, 123);
+
+	t.end();
+});
+
+
 test('date', t => {
 	const input = new Date;
 	const output = klona(input);
@@ -219,6 +233,59 @@ test('string', t => {
 
 	input += '123';
 	t.is(output, 'hello world');
+
+	t.end();
+});
+
+
+test('typedarray :: buffer', t => {
+	const input = Buffer.from('asd');
+	const output = klona(input);
+
+	t.deepEqual(input, output);
+
+	output.write('foobar');
+	t.is(input.toString(), 'asd');
+
+	output[1] = 11;
+	t.not(input[1], output[1]);
+
+	const current = output.toString();
+	input.write('hello');
+	t.is(output.toString(), current);
+
+	t.end();
+});
+
+
+test('typedarray :: uint16array', t => {
+	const input = new Int16Array([42]);
+	const output = klona(input);
+
+	t.deepEqual(input, output);
+
+	output[1] = 42;
+	t.is(input[1], undefined);
+
+	input[0] = 0;
+	t.is(output[0], 42);
+
+	t.end();
+});
+
+
+test('typedarray :: int32array', t => {
+	const buf = new ArrayBuffer(8);
+	const input = new Int32Array(buf);
+	const output = klona(input);
+
+	t.deepEqual(input, output);
+
+	output[1] = 42;
+	t.is(input[1], 0);
+
+	input[0] = 22;
+	t.is(output[0], 0);
 
 	t.end();
 });
