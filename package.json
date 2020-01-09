@@ -2,7 +2,7 @@
   "name": "klona",
   "version": "0.0.0",
   "repository": "lukeed/klona",
-  "description": "WIP",
+  "description": "A tiny (228B) and fast utility to \"deep clone\" Objects, Arrays, Dates, RegExps, and more!",
   "module": "dist/klona.mjs",
   "unpkg": "dist/klona.min.js",
   "main": "dist/klona.js",
@@ -25,7 +25,14 @@
     "pretest": "npm run build",
     "test": "tape -r esm test/*.js | tap-spec"
   },
-  "keywords": [],
+  "keywords": [
+    "clone",
+    "copy",
+    "deep",
+    "extend",
+    "recursive",
+    "object"
+  ],
   "devDependencies": {
     "bundt": "0.4.0",
     "esm": "3.2.25",
