@@ -11,7 +11,7 @@ export default function klona(x) {
 
 	if (str === '[object Array]') {
 		for (tmp=[],k=0; k < x.length; k++) {
-			tmp[k] = klona(tmp[k]);
+			tmp[k] = klona(x[k]);
 		}
 		return tmp;
 	}
