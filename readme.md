@@ -99,10 +99,10 @@ Returns a deep copy/clone of the input.
 
 ```
 Validation:
-  ✘ fast-clone (FAILED @ "intial copy")
+  ✘ fast-clone (FAILED @ "initial copy")
   ✔ lodash
   ✔ clone-deep
-  ✘ deep-copy (FAILED @ "intial copy")
+  ✘ deep-copy (FAILED @ "initial copy")
   ✔ depcopy
   ✔ klona
 
