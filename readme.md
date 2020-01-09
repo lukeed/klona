@@ -6,14 +6,14 @@
   <a href="https://npmjs.org/package/klona">
     <img src="https://badgen.now.sh/npm/v/klona" alt="version" />
   </a>
-  <a href="https://travis-ci.org/lukeed/klona">
+  <a href="https://github.com/lukeed/klona/actions">
     <img src="https://badgen.net/github/status/lukeed/klona" alt="status" />
   </a>
   <a href="https://npmjs.org/package/klona">
     <img src="https://badgen.now.sh/npm/dm/klona" alt="downloads" />
   </a>
   <a href="https://codecov.io/gh/lukeed/klona">
-    <img src="https://badgen.now.sh/codecov/c/github/lukeed/klona" alt="codecov" />
+    <img src="https://badgen.net/codecov/c/github/lukeed/klona" alt="codecov" />
   </a>
 </div>
 
