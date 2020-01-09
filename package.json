@@ -1,0 +1,36 @@
+{
+  "name": "dcopy",
+  "version": "0.0.0",
+  "repository": "lukeed/dcopy",
+  "description": "WIP",
+  "module": "dist/dcopy.mjs",
+  "unpkg": "dist/dcopy.min.js",
+  "main": "dist/dcopy.js",
+  "types": "dcopy.d.ts",
+  "license": "MIT",
+  "author": {
+    "name": "Luke Edwards",
+    "email": "luke.edwards05@gmail.com",
+    "url": "https://lukeed.com"
+  },
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
+  "engines": {
+    "node": ">= 8"
+  },
+  "scripts": {
+    "build": "bundt",
+    "pretest": "npm run build",
+    "test": "tape -r esm test/*.js | tap-spec"
+  },
+  "keywords": [
+  ],
+  "devDependencies": {
+    "bundt": "0.4.0",
+    "esm": "3.2.25",
+    "tap-spec": "5.0.0",
+    "tape": "4.11.0"
+  }
+}
