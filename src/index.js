@@ -1,17 +1,17 @@
-export default function dcopy(x) {
+export default function klona(x) {
 	var k, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
 		tmp = {};
 		for (k in x) {
-			tmp[k] = dcopy(x[k]);
+			tmp[k] = klona(x[k]);
 		}
 		return tmp;
 	}
 
 	if (str === '[object Array]') {
 		for (tmp=[],k=0; k < x.length; k++) {
-			tmp[k] = dcopy(tmp[k]);
+			tmp[k] = klona(tmp[k]);
 		}
 		return tmp;
 	}

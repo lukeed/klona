@@ -1,12 +1,12 @@
 {
-  "name": "dcopy",
+  "name": "klona",
   "version": "0.0.0",
-  "repository": "lukeed/dcopy",
+  "repository": "lukeed/klona",
   "description": "WIP",
-  "module": "dist/dcopy.mjs",
-  "unpkg": "dist/dcopy.min.js",
-  "main": "dist/dcopy.js",
-  "types": "dcopy.d.ts",
+  "module": "dist/klona.mjs",
+  "unpkg": "dist/klona.min.js",
+  "main": "dist/klona.js",
+  "types": "klona.d.ts",
   "license": "MIT",
   "author": {
     "name": "Luke Edwards",
