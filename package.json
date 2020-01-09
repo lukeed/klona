@@ -25,12 +25,11 @@
     "pretest": "npm run build",
     "test": "tape -r esm test/*.js | tap-spec"
   },
-  "keywords": [
-  ],
+  "keywords": [],
   "devDependencies": {
     "bundt": "0.4.0",
     "esm": "3.2.25",
     "tap-spec": "5.0.0",
-    "tape": "4.11.0"
+    "tape": "4.13.0"
   }
 }
