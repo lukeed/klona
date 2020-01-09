@@ -13,7 +13,7 @@
     <img src="https://badgen.now.sh/npm/dm/klona" alt="downloads" />
   </a>
   <a href="https://codecov.io/gh/lukeed/klona">
-    <img src="https://badgen.net/codecov/c/github/lukeed/klona" alt="codecov" />
+    <img src="https://codecov.io/gh/lukeed/klona/branch/master/graph/badge.svg?token=8ej0WeKqz7" alt="codecov" />
   </a>
 </div>
 
