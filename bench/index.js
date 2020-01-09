@@ -9,7 +9,9 @@ const depcopy = require('deepcopy');
 const klona = require('../dist/klona');
 const INPUT = require('./input');
 
-const contenders = { fast_clone, lodash, clone_deep, deep_copy, depcopy, klona }
+const naiive = x => JSON.parse(JSON.stringify(x));
+
+const contenders = { 'JSON.stringify':naiive, fast_clone, lodash, clone_deep, deep_copy, depcopy, klona };
 
 console.log('Validation: ');
 Object.keys(contenders).forEach(lib => {
