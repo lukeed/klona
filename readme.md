@@ -17,14 +17,15 @@
   </a>
 </div>
 
-<div align="center">A tiny (228B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
+<div align="center">A tiny (281B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
 
 
 ## Features
 
 * Super tiny and [performant](#benchmarks)
 * Deep clone / recursive copies
-* Safety with `Date`s and `RegExp`s
+* Safely handles complex data types<br>
+    _Array, Date, Map, Object, RegExp, Set, TypedArray_
 
 Unlike a "shallow copy" (eg, `Object.assign`), a "deep clone" recursively traverses a source input and copies its _values_ &mdash; instead of _references_ to its values &mdash; into a new instance of that input. The result is a structurally equivalent clone that operates independently of the original source and controls its own values.
 
@@ -108,13 +109,13 @@ Validation:
   ✔ klona
 
 Benchmark:
-  JSON.stringify   x  37,987 ops/sec ±0.56% (91 runs sampled)
-  fast-clone       x  23,840 ops/sec ±0.62% (93 runs sampled)
-  lodash           x  40,873 ops/sec ±1.13% (94 runs sampled)
-  clone-deep       x  84,537 ops/sec ±0.16% (97 runs sampled)
-  deep-copy        x 116,896 ops/sec ±0.15% (99 runs sampled)
-  depcopy          x  24,788 ops/sec ±0.62% (95 runs sampled)
-  klona            x 250,513 ops/sec ±0.20% (96 runs sampled)
+  JSON.stringify   x  37,803 ops/sec ±0.68% (89 runs sampled)
+  fast-clone       x  24,210 ops/sec ±0.81% (91 runs sampled)
+  lodash           x  40,563 ops/sec ±1.10% (94 runs sampled)
+  clone-deep       x  85,020 ops/sec ±0.17% (95 runs sampled)
+  deep-copy        x 116,139 ops/sec ±0.29% (96 runs sampled)
+  depcopy          x  24,392 ops/sec ±0.71% (96 runs sampled)
+  klona            x 274,496 ops/sec ±0.15% (99 runs sampled)
 ```
 
 
