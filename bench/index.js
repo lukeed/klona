@@ -17,7 +17,7 @@ Object.keys(contenders).forEach(lib => {
 
 	try {
 		const output = contenders[lib](INPUT);
-		assert.deepStrictEqual(output, INPUT, 'intial copy');
+		assert.deepStrictEqual(output, INPUT, 'initial copy');
 
 		output[0].age++;
 		assert.notEqual(INPUT[0].age, 34, 'increment');
