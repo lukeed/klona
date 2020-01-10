@@ -1,24 +1,23 @@
 const assert = require('assert');
 const { Suite } = require('benchmark');
-const fast_clone = require('fast-clone');
-const lodash = require('lodash/clonedeep');
-const clone_deep = require('clone-deep');
-const deep_copy = require('deep-copy');
-const depcopy = require('deepcopy');
-
-const klona = require('../dist/klona');
-const INPUT = require('./input');
 
 const naiive = x => JSON.parse(JSON.stringify(x));
 
-const contenders = { 'JSON.stringify':naiive, fast_clone, lodash, clone_deep, deep_copy, depcopy, klona };
+const contenders = {
+	'JSON.stringify': naiive,
+	'fast-clone': require('fast-clone'),
+	'lodash': require('lodash/clonedeep'),
+	'clone-deep': require('clone-deep'),
+	'deep-copy': require('deep-copy'),
+	'klona': require('../dist/klona')
+};
 
 console.log('Validation: ');
-Object.keys(contenders).forEach(lib => {
-	const name = lib.replace('_', '-');
+Object.keys(contenders).forEach(name => {
+	const INPUT = require('./input');
 
 	try {
-		const output = contenders[lib](INPUT);
+		const output = contenders[name](INPUT);
 		assert.deepStrictEqual(output, INPUT, 'initial copy');
 
 		output[0].age++;
@@ -38,12 +37,14 @@ Object.keys(contenders).forEach(lib => {
 
 
 console.log('\nBenchmark:');
+const INPUT = require('./input');
 
-const onCycle = e => console.log('  ' + e.target);
-const bench = new Suite({ onCycle });
+const bench = new Suite().on('cycle', e => {
+	console.log('  ' + e.target);
+});
 
-Object.keys(contenders).forEach(lib => {
-	bench.add(lib.replace('_', '-') + ' '.repeat(16 - lib.length), () => contenders[lib](INPUT))
+Object.keys(contenders).forEach(name => {
+	bench.add(name + ' '.repeat(22 - name.length), () => contenders[name](INPUT))
 });
 
 bench.run();
