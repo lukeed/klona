@@ -88,7 +88,7 @@ test('constructor :: hijack', t => {
 
 // @see https://snyk.io/vuln/SNYK-JS-LODASH-450202
 test('constructor :: pollution', t => {
-	const payload = '{"constructor":{"prototype":{"a0": true}}}';
+	const payload = '{"constructor":{"prototype":{"a0":true}}}';
 
 	const input = JSON.parse(payload);
 	const output = klona(input);
