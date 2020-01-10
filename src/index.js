@@ -19,9 +19,25 @@ export default function klona(x) {
 		return tmp;
 	}
 
-	if (str === '[object Set]') return new Set(x);
-	if (str === '[object Date]') return new Date(+x);
-	if (str === '[object Map]') return new Map(x);
+	if (str === '[object Set]') {
+		tmp = new Set();
+		x.forEach(function (val) {
+			tmp.add(klona(val));
+		});
+		return tmp;
+	}
+
+	if (str === '[object Map]') {
+		tmp = new Map();
+		x.forEach(function (val, key) {
+			tmp.set(key, klona(val));
+		});
+		return tmp;
+	}
+
+	if (str === '[object Date]') {
+		return new Date(+x);
+	}
 
 	if (str === '[object RegExp]') {
 		tmp = new RegExp(x.source, x.flags);

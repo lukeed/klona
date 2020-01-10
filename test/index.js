@@ -138,7 +138,7 @@ test('function', t => {
 });
 
 
-test('map', t => {
+test('map :: flat', t => {
 	const input = new Map();
 	const output = klona(input);
 
@@ -149,6 +149,28 @@ test('map', t => {
 
 	input.set('foo', 'bar');
 	t.is(output.get('foo'), undefined);
+
+	t.end();
+});
+
+
+test('map :: nested', t => {
+	const input = new Map([
+		['foo', { a: 1 }],
+		['bar', [1, 2, 3]],
+	]);
+	const output = klona(input);
+
+	const foo = output.get('foo');
+	foo.b = 2;
+	foo.a++;
+
+	t.deepEqual(input.get('foo'), { a: 1 });
+	t.deepEqual(output.get('foo'), { a: 2, b: 2 });
+
+	output.get('bar').push(4, 5, 6);
+	t.deepEqual(input.get('bar'), [1, 2, 3]);
+	t.deepEqual(output.get('bar'), [1, 2, 3, 4, 5, 6]);
 
 	t.end();
 });
@@ -264,7 +286,7 @@ test('regexp :: state', t => {
 });
 
 
-test('set', t => {
+test('set :: flat', t => {
 	const input = new Set('hello');
 	const output = klona(input);
 
@@ -275,6 +297,22 @@ test('set', t => {
 
 	input.add('foobar');
 	t.false(output.has('foobar'));
+
+	t.end();
+});
+
+test('set :: nested', t => {
+	const input = new Set([{ foo: 123 }]);
+	const output = klona(input);
+
+	t.deepEqual(input, output);
+
+	const [obj] = [...output.keys()];
+	obj.bar = 456;
+	obj.foo++;
+
+	const [item] = [...input.keys()];
+	t.deepEqual(item, { foo: 123 });
 
 	t.end();
 });
