@@ -1,7 +1,7 @@
 const assert = require('assert');
 const { Suite } = require('benchmark');
 const fast_clone = require('fast-clone');
-const lodash = require('lodash.clonedeep');
+const lodash = require('lodash/clonedeep');
 const clone_deep = require('clone-deep');
 const deep_copy = require('deep-copy');
 const depcopy = require('deepcopy');
