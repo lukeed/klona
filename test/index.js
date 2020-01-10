@@ -63,6 +63,49 @@ test('class', t => {
 });
 
 
+test('constructor :: hijack', t => {
+	let count = 0;
+
+	class Foo {}
+	function CustomArray() {
+		count++;
+	}
+
+	const input = new Foo();
+	t.is(input.constructor.name, 'Foo');
+
+	input.constructor = CustomArray;
+	t.is(input.constructor.name, 'CustomArray');
+
+	const output = klona(input);
+	t.deepEqual(input, output);
+
+	t.is(count, 0, '~> did not call constructor');
+
+	t.end();
+});
+
+
+// @see https://snyk.io/vuln/SNYK-JS-LODASH-450202
+test('constructor :: pollution', t => {
+	const payload = '{"constructor":{"prototype":{"a0": true}}}';
+
+	const input = JSON.parse(payload);
+	const output = klona(input);
+
+	t.deepEqual(
+		JSON.stringify(output),
+		payload
+	);
+
+	t.not(({})['a0'], true, 'Safe POJO');
+	t.not(input['a0'], true, 'Safe input');
+	t.not(output['a0'], true, 'Safe output');
+
+	t.end();
+});
+
+
 test('date', t => {
 	const input = new Date;
 	const output = klona(input);
