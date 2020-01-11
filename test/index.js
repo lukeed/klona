@@ -176,6 +176,23 @@ test('map :: nested', t => {
 });
 
 
+test('map :: nested :: keys', t => {
+	const input = new Map([
+		[{ foo:1 }, { a: 1 }]
+	]);
+
+	const output = klona(input);
+	t.deepEqual(input, output);
+
+	[...output.keys()][0].bar = 2;
+
+	t.deepEqual([...input.keys()][0], { foo:1 });
+	t.deepEqual([...output.keys()][0], { foo:1, bar:2 });
+
+	t.end();
+});
+
+
 test('null', t => {
 	let input = null;
 	let output = klona(input);

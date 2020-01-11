@@ -30,7 +30,7 @@ export default function klona(x) {
 	if (str === '[object Map]') {
 		tmp = new Map();
 		x.forEach(function (val, key) {
-			tmp.set(key, klona(val));
+			tmp.set(klona(key), klona(val));
 		});
 		return tmp;
 	}
