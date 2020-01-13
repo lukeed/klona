@@ -99,6 +99,7 @@ test('constructor :: pollution', t => {
 	);
 
 	t.not(({})['a0'], true, 'Safe POJO');
+	t.not(new Object()['a0'], true, 'Safe Object');
 	t.not(input['a0'], true, 'Safe input');
 	t.not(output['a0'], true, 'Safe output');
 
@@ -106,9 +107,9 @@ test('constructor :: pollution', t => {
 });
 
 
+// @see https://snyk.io/vuln/SNYK-JS-LODASH-450202
 test('prototype :: pollution', t => {
 	const payload = '{"__proto__":{"a0":true}}';
-
 	const input = JSON.parse(payload);
 	const output = klona(input);
 
@@ -118,6 +119,7 @@ test('prototype :: pollution', t => {
 	);
 
 	t.not(({})['a0'], true, 'Safe POJO');
+	t.not(new Object()['a0'], true, 'Safe Object');
 	t.not(input['a0'], true, 'Safe input');
 	t.not(output['a0'], true, 'Safe output');
 

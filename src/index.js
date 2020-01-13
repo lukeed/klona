@@ -6,7 +6,16 @@ export default function klona(x) {
 	if (str === '[object Object]') {
 		tmp = {};
 		for (k in x) {
+			if (k === '__proto__') {
+				Object.defineProperty(tmp, k, {
+					value: klona(x[k]),
+					configurable: 1,
+					enumerable: 1,
+					writable: 1,
+				});
+			} else {
 			tmp[k] = klona(x[k]);
+		}
 		}
 		return tmp;
 	}
