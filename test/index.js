@@ -106,6 +106,25 @@ test('constructor :: pollution', t => {
 });
 
 
+test('prototype :: pollution', t => {
+	const payload = '{"__proto__":{"a0":true}}';
+
+	const input = JSON.parse(payload);
+	const output = klona(input);
+
+	t.deepEqual(
+		JSON.stringify(output),
+		payload
+	);
+
+	t.not(({})['a0'], true, 'Safe POJO');
+	t.not(input['a0'], true, 'Safe input');
+	t.not(output['a0'], true, 'Safe output');
+
+	t.end();
+});
+
+
 test('date', t => {
 	const input = new Date;
 	const output = klona(input);
