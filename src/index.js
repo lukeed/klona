@@ -14,8 +14,8 @@ export default function klona(x) {
 					writable: 1,
 				});
 			} else {
-			tmp[k] = klona(x[k]);
-		}
+				tmp[k] = klona(x[k]);
+			}
 		}
 		return tmp;
 	}
