@@ -22,7 +22,7 @@ export default function klona(x) {
 
 	if (str === '[object Array]') {
 		k = x.length;
-		for (tmp=new Array(k); k--;) {
+		for (tmp=Array(k); k--;) {
 			tmp[k] = klona(x[k]);
 		}
 		return tmp;
