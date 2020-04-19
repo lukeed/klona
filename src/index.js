@@ -1,4 +1,4 @@
-export default function klona(x) {
+function klona(x) {
 	if (typeof x !== 'object') return x;
 
 	var k, tmp, str=Object.prototype.toString.call(x);
@@ -60,3 +60,6 @@ export default function klona(x) {
 
 	return x;
 }
+
+export default klona;
+export { klona };

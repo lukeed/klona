@@ -1,1 +1,3 @@
-export default function<T>(val: T): T;
+declare function klona<T>(val: T): T
+export default klona;
+export { klona };
