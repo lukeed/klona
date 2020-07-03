@@ -1,10 +1,13 @@
 {
+  "private": true,
   "devDependencies": {
     "benchmark": "2.1.4",
     "clone-deep": "4.0.1",
     "deep-copy": "1.4.2",
     "deepcopy": "2.0.0",
     "fast-clone": "1.5.13",
-    "lodash": "4.17.15"
+    "klona": "file:../",
+    "lodash": "4.17.15",
+    "rfdc": "1.1.4"
   }
 }
