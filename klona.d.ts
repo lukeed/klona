@@ -1,1 +1,4 @@
-export default function<T>(val: T): T;
+declare module 'klona' {
+	function klona<T>(val: T): T;
+	export = klona;
+}
