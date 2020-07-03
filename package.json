@@ -23,7 +23,7 @@
   "scripts": {
     "build": "bundt",
     "pretest": "npm run build",
-    "test": "tape -r esm test/*.js | tap-spec"
+    "test": "uvu -r esm test"
   },
   "keywords": [
     "clone",
@@ -36,7 +36,6 @@
   "devDependencies": {
     "bundt": "1.0.2",
     "esm": "3.2.25",
-    "tap-spec": "5.0.0",
-    "tape": "4.13.0"
+    "uvu": "0.0.17"
   }
 }
