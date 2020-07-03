@@ -29,7 +29,7 @@ export default function klona(x) {
 	}
 
 	if (str === '[object Set]') {
-		tmp = new Set();
+		tmp = new Set;
 		x.forEach(function (val) {
 			tmp.add(klona(val));
 		});
@@ -37,7 +37,7 @@ export default function klona(x) {
 	}
 
 	if (str === '[object Map]') {
-		tmp = new Map();
+		tmp = new Map;
 		x.forEach(function (val, key) {
 			tmp.set(klona(key), klona(val));
 		});
