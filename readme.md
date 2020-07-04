@@ -31,8 +31,8 @@ Unlike a "shallow copy" (eg, `Object.assign`), a "deep clone" recursively traver
 
 Additionally, this module is delivered as:
 
-* **ES Module**: [`dist/klona.mjs`](https://unpkg.com/klona/dist/klona.mjs)
-* **CommonJS**: [`dist/klona.js`](https://unpkg.com/klona/dist/klona.js)
+* **ES Module**: [`dist/index.mjs`](https://unpkg.com/klona/dist/index.mjs)
+* **CommonJS**: [`dist/index.js`](https://unpkg.com/klona/dist/index.js)
 * **UMD**: [`dist/klona.min.js`](https://unpkg.com/klona)
 
 > **Why "klona"?** It's "clone" in Swedish.<br>
