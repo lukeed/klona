@@ -65,39 +65,30 @@ Classes('class', () => {
 	const output = klona(input);
 
 	assert.deepEqual(input, output);
+	assert.equal(input.constructor, output.constructor);
+	assert.equal(output.constructor.name, 'Foobar');
 
 	output.foobar = 123;
 	// @ts-ignore
 	assert.notEqual(input.foobar, 123);
 });
 
-Classes.run();
+// @see https://github.com/lukeed/klona/issues/14
+Classes('prototype', () => {
+	function Test () {}
+	Test.prototype.val = 42;
 
-// ---
-
-const Constructor = suite('constructor');
-
-Constructor('hijack', () => {
-	let count = 0;
-
-	class Foo {}
-	function CustomArray() {
-		count++;
-	}
-
-	const input = new Foo();
-	assert.equal(input.constructor.name, 'Foo');
-
-	input.constructor = CustomArray;
-	assert.equal(input.constructor.name, 'CustomArray');
-
+	const input = new Test();
 	const output = klona(input);
+
 	assert.deepEqual(input, output);
 
-	assert.equal(count, 0, '~> did not call constructor');
+	assert.deepEqual(output.constructor, Test);
+	assert.deepEqual(output.__proto__, { val: 42 });
+	assert.deepEqual(output, {});
 });
 
-Constructor.run();
+Classes.run();
 
 // ---
 

@@ -4,17 +4,26 @@ export default function klona(x) {
 	var k, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
-		tmp = {};
-		for (k in x) {
-			if (k === '__proto__') {
-				Object.defineProperty(tmp, k, {
-					value: klona(x[k]),
-					configurable: 1,
-					enumerable: 1,
-					writable: 1,
-				});
-			} else {
-				tmp[k] = klona(x[k]);
+		if (x.constructor !== Object && typeof x.constructor === 'function') {
+			tmp = new x.constructor();
+			for (k in x) {
+				if (tmp[k] === void 0) {
+					tmp[k] = klona(x[k]);
+				}
+			}
+		} else {
+			tmp = {}; // null
+			for (k in x) {
+				if (k === '__proto__') {
+					Object.defineProperty(tmp, k, {
+						value: klona(x[k]),
+						configurable: true,
+						enumerable: true,
+						writable: true,
+					});
+				} else {
+					tmp[k] = klona(x[k]);
+				}
 			}
 		}
 		return tmp;
