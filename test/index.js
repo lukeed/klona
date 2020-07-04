@@ -86,6 +86,24 @@ Classes('prototype', () => {
 	assert.deepEqual(output.constructor, Test);
 	assert.deepEqual(output.__proto__, { val: 42 });
 	assert.deepEqual(output, {});
+	assert.equal(output.val, 42);
+});
+
+Classes('constructor properties', () => {
+	function Test (num) {
+		this.value = num;
+	}
+
+	Test.prototype.val = 42;
+
+	const input = new Test(123);
+	const output = klona(input);
+
+	assert.deepEqual(input, output);
+	assert.deepEqual(output.constructor, Test);
+	assert.deepEqual(output.__proto__, { val: 42 });
+	assert.equal(output.value, 123);
+	assert.equal(output.val, 42);
 });
 
 Classes.run();
