@@ -7,7 +7,7 @@
     <img src="https://badgen.now.sh/npm/v/klona" alt="version" />
   </a>
   <a href="https://github.com/lukeed/klona/actions">
-    <img src="https://badgen.net/github/status/lukeed/klona" alt="status" />
+    <img src="https://github.com/lukeed/klona/workflows/CI/badge.svg" alt="CI" />
   </a>
   <a href="https://npmjs.org/package/klona">
     <img src="https://badgen.now.sh/npm/dm/klona" alt="downloads" />
