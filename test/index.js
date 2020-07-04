@@ -97,8 +97,14 @@ Constructor('hijack', () => {
 	assert.equal(count, 0, '~> did not call constructor');
 });
 
+Constructor.run();
+
+// ---
+
+const Pollution = suite('pollution');
+
 // @see https://snyk.io/vuln/SNYK-JS-LODASH-450202
-Constructor('pollution', () => {
+Pollution('constructor', () => {
 	const payload = '{"constructor":{"prototype":{"a0":true}}}';
 
 	const input = JSON.parse(payload);
@@ -115,14 +121,8 @@ Constructor('pollution', () => {
 	assert.notEqual(output['a0'], true, 'Safe output');
 });
 
-Constructor.run();
-
-// ---
-
-const Prototype = suite('prototype');
-
 // @see https://snyk.io/vuln/SNYK-JS-LODASH-450202
-Prototype('prototype :: pollution', () => {
+Pollution('prototype', () => {
 	const payload = '{"__proto__":{"a0":true}}';
 	const input = JSON.parse(payload);
 	const output = klona(input);
@@ -138,7 +138,7 @@ Prototype('prototype :: pollution', () => {
 	assert.notEqual(output['a0'], true, 'Safe output');
 });
 
-Prototype.run();
+Pollution.run();
 
 // ---
 
