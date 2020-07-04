@@ -99,23 +99,31 @@ Returns a deep copy/clone of the input.
 > via Node.js v10.13.0
 
 ```
+Load times:
+  fast-clone         0.884ms
+  lodash/clonedeep  27.716ms
+  rfdc               0.782ms
+  clone-deep         4.023ms
+  deep-copy          0.513ms
+  klona              0.333ms
+
 Validation:
   ✘ JSON.stringify (FAILED @ "initial copy")
   ✘ fast-clone (FAILED @ "initial copy")
   ✔ lodash
+  ✘ rfdc (FAILED @ "initial copy")
   ✔ clone-deep
   ✘ deep-copy (FAILED @ "initial copy")
-  ✔ depcopy
   ✔ klona
 
 Benchmark:
-  JSON.stringify   x  37,803 ops/sec ±0.68% (89 runs sampled)
-  fast-clone       x  24,210 ops/sec ±0.81% (91 runs sampled)
-  lodash           x  40,563 ops/sec ±1.10% (94 runs sampled)
-  clone-deep       x  85,020 ops/sec ±0.17% (95 runs sampled)
-  deep-copy        x 116,139 ops/sec ±0.29% (96 runs sampled)
-  depcopy          x  24,392 ops/sec ±0.71% (96 runs sampled)
-  klona            x 274,496 ops/sec ±0.15% (99 runs sampled)
+  JSON.stringify   x  36,628 ops/sec ±1.34% (89 runs sampled)
+  fast-clone       x  23,518 ops/sec ±1.18% (91 runs sampled)
+  lodash           x  33,810 ops/sec ±1.34% (94 runs sampled)
+  rfdc             x 181,634 ops/sec ±0.71% (95 runs sampled)
+  clone-deep       x  84,558 ops/sec ±0.19% (96 runs sampled)
+  deep-copy        x 112,866 ops/sec ±1.26% (94 runs sampled)
+  klona            x 220,356 ops/sec ±0.34% (97 runs sampled)
 ```
 
 
