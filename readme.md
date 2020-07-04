@@ -17,7 +17,7 @@
   </a>
 </div>
 
-<div align="center">A tiny (366B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
+<div align="center">A tiny (415B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
 
 
 ## Features
