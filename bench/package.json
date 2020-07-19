@@ -7,7 +7,7 @@
     "deepcopy": "2.0.0",
     "fast-clone": "1.5.13",
     "klona": "file:../",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "rfdc": "1.1.4"
   }
 }
