@@ -1,3 +1,1 @@
-declare function klona<T>(val: T): T
-export default klona;
-export { klona };
+export function klona<T>(val: T): T
