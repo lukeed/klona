@@ -1,181 +1,286 @@
-import test from 'tape';
+import { suite } from 'uvu';
+import * as assert from 'assert';
 import klona from '../src';
 
-test('exports', t => {
-	t.is(typeof klona, 'function', 'exports a function');
-	t.end();
+const API = suite('exports');
+
+API('should export a function', () => {
+	assert.equal(typeof klona, 'function');
 });
 
+API.run();
 
-test('array :: flat', t => {
+// ---
+
+const Arrays = suite('Arrays');
+
+Arrays('flat', () => {
 	const input = ['foo', 'bar', 'baz'];
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output[1] = 'hello';
-	t.not(input[1], 'hello');
-
-	t.end();
+	assert.notEqual(input[1], 'hello');
 });
 
-
-test('array :: nested', t => {
+Arrays('nested', () => {
 	const input = ['foo', [1, 2, ['hello', 'world'], 3], 'bar', 'baz'];
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output[1][2][0] = 'howdy';
-	t.is(input[1][2][0], 'hello');
+	assert.equal(input[1][2][0], 'hello');
 
 	output[1] = 'hello';
-	t.not(input[1], 'hello');
-
-	t.end();
+	assert.notEqual(input[1], 'hello');
 });
 
+Arrays.run();
 
-test('boolean', t => {
+// ---
+
+const Booleans = suite('Boolean');
+
+Booleans('boolean', () => {
 	const input = true;
 	let output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output = false;
-	t.is(input, true);
-
-	t.end();
+	assert.equal(input, true);
 });
 
+Booleans.run();
 
-test('class', t => {
+// ---
+
+const Classes = suite('class');
+
+Classes('class', () => {
 	class Foobar {}
 	const input = new Foobar();
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
+	assert.equal(input.constructor, output.constructor);
+	assert.equal(output.constructor.name, 'Foobar');
 
 	output.foobar = 123;
-	t.not(input.foobar, 123);
-
-	t.end();
+	// @ts-ignore
+	assert.notEqual(input.foobar, 123);
 });
 
+// @see https://github.com/lukeed/klona/issues/14
+Classes('prototype', () => {
+	function Test () {}
+	Test.prototype.val = 42;
 
-test('constructor :: hijack', t => {
-	let count = 0;
+	const input = new Test();
+	const output = klona(input);
 
-	class Foo {}
-	function CustomArray() {
-		count++;
+	assert.deepEqual(input, output);
+
+	assert.deepEqual(output.constructor, Test);
+	assert.deepEqual(output.__proto__, { val: 42 });
+	assert.deepEqual(output, {});
+	assert.equal(output.val, 42);
+});
+
+Classes('constructor properties', () => {
+	function Test (num) {
+		this.value = num;
 	}
 
-	const input = new Foo();
-	t.is(input.constructor.name, 'Foo');
+	Test.prototype.val = 42;
 
-	input.constructor = CustomArray;
-	t.is(input.constructor.name, 'CustomArray');
-
+	const input = new Test(123);
 	const output = klona(input);
-	t.deepEqual(input, output);
 
-	t.is(count, 0, '~> did not call constructor');
-
-	t.end();
+	assert.deepEqual(input, output);
+	assert.deepEqual(output.constructor, Test);
+	assert.deepEqual(output.__proto__, { val: 42 });
+	assert.equal(output.value, 123);
+	assert.equal(output.val, 42);
 });
 
+Classes('constructor properties :: class', () => {
+	class Test {
+		constructor(num) {
+			this.value = num;
+		}
+	}
+
+	Test.prototype.val = 42;
+
+	const input = new Test(123);
+	const output = klona(input);
+
+	assert.deepEqual(input, output);
+	assert.deepEqual(output.constructor, Test);
+	assert.deepEqual(output.__proto__, { val: 42 });
+
+	assert.equal(output.value, 123);
+	assert.equal(output.val, 42);
+});
+
+Classes('constructor properties :: defaults', () => {
+	class Test {
+		constructor(num = 123) {
+			this.value = num;
+		}
+	}
+
+	const input = new Test(456);
+	const output = klona(input);
+
+	assert.deepEqual(input, output);
+	assert.equal(output.value, 456);
+});
+
+Classes('accessors', () => {
+	class Test {
+		get val() {
+			return 42;
+		}
+	}
+
+	const input = new Test();
+	const output = klona(input);
+
+	assert.deepEqual(input, output);
+	assert.deepEqual(output.constructor, Test);
+	assert.deepEqual(output.__proto__, {});
+
+	assert.deepEqual(
+		// @ts-ignore
+		Object.getOwnPropertyDescriptor(input.__proto__, 'val'),
+		Object.getOwnPropertyDescriptor(output.__proto__, 'val'),
+	);
+
+	assert.equal(output.val, 42);
+})
+
+Classes.run();
+
+// ---
+
+const Pollution = suite('pollution');
 
 // @see https://snyk.io/vuln/SNYK-JS-LODASH-450202
-test('constructor :: pollution', t => {
+Pollution('constructor', () => {
 	const payload = '{"constructor":{"prototype":{"a0":true}}}';
 
 	const input = JSON.parse(payload);
 	const output = klona(input);
 
-	t.deepEqual(
+	assert.equal(
 		JSON.stringify(output),
 		payload
 	);
 
-	t.not(({})['a0'], true, 'Safe POJO');
-	t.not(new Object()['a0'], true, 'Safe Object');
-	t.not(input['a0'], true, 'Safe input');
-	t.not(output['a0'], true, 'Safe output');
+	assert.notEqual(({})['a0'], true, 'Safe POJO');
+	assert.notEqual(new Object()['a0'], true, 'Safe Object');
 
-	t.end();
+	assert.notEqual(input['a0'], true, 'Safe input');
+	assert.notEqual(output['a0'], true, 'Safe output');
 });
 
-
 // @see https://snyk.io/vuln/SNYK-JS-LODASH-450202
-test('prototype :: pollution', t => {
+Pollution('__proto__', () => {
 	const payload = '{"__proto__":{"a0":true}}';
 	const input = JSON.parse(payload);
 	const output = klona(input);
 
-	t.deepEqual(
+	assert.equal(
 		JSON.stringify(output),
 		payload
 	);
 
-	t.not(({})['a0'], true, 'Safe POJO');
-	t.not(new Object()['a0'], true, 'Safe Object');
-	t.not(input['a0'], true, 'Safe input');
-	t.not(output['a0'], true, 'Safe output');
+	assert.notEqual(({})['a0'], true, 'Safe POJO');
+	assert.notEqual(new Object()['a0'], true, 'Safe Object');
 
-	t.end();
+	assert.notEqual(input['a0'], true, 'Safe input');
+	assert.notEqual(output['a0'], true, 'Safe output');
 });
 
+Pollution('prototype', () => {
+	const payload = '{"prototype":{"hello":"world"}}';
+	const input = JSON.parse(payload);
+	const output = klona(input);
 
-test('date', t => {
+	assert.equal(
+		JSON.stringify(output),
+		payload
+	);
+
+	assert.notEqual(({})['hello'], 'world', 'Safe POJO');
+	assert.notEqual(new Object()['hello'], 'world', 'Safe Object');
+
+	assert.notEqual(input['hello'], 'world', 'Safe input');
+	assert.notEqual(output['hello'], 'world', 'Safe output');
+});
+
+Pollution.run();
+
+// ---
+
+const Dates = suite('Date');
+
+Dates('date', () => {
 	const input = new Date;
 	const output = klona(input);
 	const original = input.toString();
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output.setDate('foobar123');
-	t.is(output.toString(), 'Invalid Date');
-	t.is(input.toString(), original);
-
-	t.end();
+	assert.equal(output.toString(), 'Invalid Date');
+	assert.equal(input.toString(), original);
 });
 
+Dates.run();
 
-test('function', t => {
+// ---
+
+const Functions = suite('Function');
+
+Functions('function', () => {
 	let input = () => {};
 	let output = klona(input);
 	let original = input.toString();
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	input = () => 123;
-	t.is(output.toString(), original);
+	assert.equal(output.toString(), original);
 
 	output = () => 456;
-	t.is(input.toString(), '() => 123');
-
-	t.end();
+	assert.equal(input.toString(), '() => 123');
 });
 
+Functions.run();
 
-test('map :: flat', t => {
+// ---
+
+const Maps = suite('Map');
+
+Maps('flat', () => {
 	const input = new Map();
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output.set('hello', 'world');
-	t.is(input.get('hello'), undefined);
+	assert.equal(input.get('hello'), undefined);
 
 	input.set('foo', 'bar');
-	t.is(output.get('foo'), undefined);
-
-	t.end();
+	assert.equal(output.get('foo'), undefined);
 });
 
-
-test('map :: nested', t => {
+Maps('nested', () => {
 	const input = new Map([
 		['foo', { a: 1 }],
 		['bar', [1, 2, 3]],
@@ -186,83 +291,86 @@ test('map :: nested', t => {
 	foo.b = 2;
 	foo.a++;
 
-	t.deepEqual(input.get('foo'), { a: 1 });
-	t.deepEqual(output.get('foo'), { a: 2, b: 2 });
+	assert.deepEqual(input.get('foo'), { a: 1 });
+	assert.deepEqual(output.get('foo'), { a: 2, b: 2 });
 
 	output.get('bar').push(4, 5, 6);
-	t.deepEqual(input.get('bar'), [1, 2, 3]);
-	t.deepEqual(output.get('bar'), [1, 2, 3, 4, 5, 6]);
-
-	t.end();
+	assert.deepEqual(input.get('bar'), [1, 2, 3]);
+	assert.deepEqual(output.get('bar'), [1, 2, 3, 4, 5, 6]);
 });
 
-
-test('map :: nested :: keys', t => {
+Maps('nested :: keys', () => {
 	const input = new Map([
 		[{ foo:1 }, { a: 1 }]
 	]);
 
 	const output = klona(input);
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	[...output.keys()][0].bar = 2;
 
-	t.deepEqual([...input.keys()][0], { foo:1 });
-	t.deepEqual([...output.keys()][0], { foo:1, bar:2 });
-
-	t.end();
+	assert.deepEqual([...input.keys()][0], { foo:1 });
+	assert.deepEqual([...output.keys()][0], { foo:1, bar:2 });
 });
 
+Maps.run();
 
-test('null', t => {
+// ---
+
+const Null = suite('null');
+
+Null('null', () => {
 	let input = null;
 	let output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output = 1;
-	t.is(input, null);
+	assert.equal(input, null);
 
 	input = 123;
-	t.is(output, 1);
-
-	t.end();
+	assert.equal(output, 1);
 });
 
+Null.run();
 
-test('number', t => {
+// ---
+
+const Numbers = suite('Number');
+
+Numbers('number', () => {
 	let input = 123;
 	let output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output++;
-	t.is(input, 123);
+	assert.equal(input, 123);
 
 	input += 100;
-	t.is(output, 124);
-
-	t.end();
+	assert.equal(output, 124);
 });
 
+Numbers.run();
 
-test('object :: flat', t => {
+// ---
+
+const Objects = suite('Object');
+
+Objects('flat', () => {
 	const input = { foo:1, bar:2, baz:3 };
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output.foo++;
-	t.is(input.foo, 1);
+	assert.equal(input.foo, 1);
 
 	output.bar = 'hello';
-	t.is(input.bar, 2);
-
-	t.end();
+	assert.equal(input.bar, 2);
 });
 
-
-test('object :: nested', t => {
+Objects('nested', () => {
 	const input = {
 		foo: 1,
 		bar: {
@@ -275,151 +383,152 @@ test('object :: nested', t => {
 
 	const output = klona(input);
 
-	t.deepEqual(
+	assert.equal(
 		JSON.stringify(input),
 		JSON.stringify(output)
 	);
 
 	output.bar.a = 11;
-	t.is(input.bar.a, 2);
+	assert.equal(input.bar.a, 2);
 
 	output.bar.b[1] = 'mundo';
-	t.is(input.bar.b[1], 'world');
+	assert.equal(input.bar.b[1], 'world');
 
 	output.bar.c[0].hello = 99;
-	t.is(input.bar.c[0].hello, 1);
-
-	t.end();
+	assert.equal(input.bar.c[0].hello, 1);
 });
 
+Objects.run();
 
-test('regexp :: basic', t => {
+// ---
+
+const RegExps = suite('RegExp');
+
+RegExps('basic', () => {
 	const input = /foo/gi;
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output.exec('foofoofoo');
-	t.is(output.lastIndex, 3);
-	t.is(input.lastIndex, 0);
-
-	t.end();
+	assert.equal(output.lastIndex, 3);
+	assert.equal(input.lastIndex, 0);
 });
 
-
-test('regexp :: state', t => {
+RegExps('state', () => {
 	const input = /foo/gi;
 	input.exec('foofoofoo');
 	const index = input.lastIndex;
 
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
-	t.is(index, 3);
-	t.is(input.lastIndex, index);
-	t.is(output.lastIndex, index);
-
-	t.end();
+	assert.equal(index, 3);
+	assert.equal(input.lastIndex, index);
+	assert.equal(output.lastIndex, index);
 });
 
+RegExps.run();
 
-test('set :: flat', t => {
+// ---
+
+const Sets = suite('Set');
+
+Sets('flat', () => {
 	const input = new Set('hello');
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output.add('world');
-	t.false(input.has('world'));
+	assert.equal(input.has('world'), false);
 
 	input.add('foobar');
-	t.false(output.has('foobar'));
-
-	t.end();
+	assert.equal(output.has('foobar'), false);
 });
 
-test('set :: nested', t => {
+Sets('nested', () => {
 	const input = new Set([{ foo: 123 }]);
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	const [obj] = [...output.keys()];
 	obj.bar = 456;
 	obj.foo++;
 
 	const [item] = [...input.keys()];
-	t.deepEqual(item, { foo: 123 });
-
-	t.end();
+	assert.deepEqual(item, { foo: 123 });
 });
 
+Sets.run();
 
-test('string', t => {
+// ---
+
+
+const Strings = suite('String');
+
+Strings('string', () => {
 	let input = 'hello';
 	let output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.equal(input, output);
 
 	output += ' world';
-	t.is(input, 'hello');
+	assert.equal(input, 'hello');
 
 	input += '123';
-	t.is(output, 'hello world');
-
-	t.end();
+	assert.equal(output, 'hello world');
 });
 
+Strings.run();
 
-test('typedarray :: buffer', t => {
+// ---
+
+const TypedArrays = suite('TypedArray');
+TypedArrays('buffer', () => {
 	const input = Buffer.from('asd');
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output.write('foobar');
-	t.is(input.toString(), 'asd');
+	assert.equal(input.toString(), 'asd');
 
 	output[1] = 11;
-	t.not(input[1], output[1]);
+	assert.notEqual(input[1], output[1]);
 
 	const current = output.toString();
 	input.write('hello');
-	t.is(output.toString(), current);
-
-	t.end();
+	assert.equal(output.toString(), current);
 });
 
-
-test('typedarray :: uint16array', t => {
+TypedArrays('uint16array', () => {
 	const input = new Int16Array([42]);
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output[1] = 42;
-	t.is(input[1], undefined);
+	assert.equal(input[1], undefined);
 
 	input[0] = 0;
-	t.is(output[0], 42);
-
-	t.end();
+	assert.equal(output[0], 42);
 });
 
-
-test('typedarray :: int32array', t => {
+TypedArrays('int32array', () => {
 	const buf = new ArrayBuffer(8);
 	const input = new Int32Array(buf);
 	const output = klona(input);
 
-	t.deepEqual(input, output);
+	assert.deepEqual(input, output);
 
 	output[1] = 42;
-	t.is(input[1], 0);
+	assert.equal(input[1], 0);
 
 	input[0] = 22;
-	t.is(output[0], 0);
-
-	t.end();
+	assert.equal(output[0], 0);
 });
+
+TypedArrays.run();

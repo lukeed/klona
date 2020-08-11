@@ -1,12 +1,12 @@
 {
   "name": "klona",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "repository": "lukeed/klona",
-  "description": "A tiny (366B) and fast utility to \"deep clone\" Objects, Arrays, Dates, RegExps, and more!",
-  "module": "dist/klona.mjs",
-  "unpkg": "dist/klona.min.js",
-  "main": "dist/klona.js",
-  "types": "klona.d.ts",
+  "description": "A tiny (423B) and fast utility to \"deep clone\" Objects, Arrays, Dates, RegExps, and more!",
+  "module": "dist/index.mjs",
+  "unpkg": "dist/index.min.js",
+  "main": "dist/index.js",
+  "types": "index.d.ts",
   "license": "MIT",
   "author": {
     "name": "Luke Edwards",
@@ -23,7 +23,7 @@
   "scripts": {
     "build": "bundt",
     "pretest": "npm run build",
-    "test": "tape -r esm test/*.js | tap-spec"
+    "test": "uvu -r esm test"
   },
   "keywords": [
     "clone",
@@ -34,9 +34,8 @@
     "object"
   ],
   "devDependencies": {
-    "bundt": "0.4.0",
+    "bundt": "1.0.2",
     "esm": "3.2.25",
-    "tap-spec": "5.0.0",
-    "tape": "4.13.0"
+    "uvu": "0.0.17"
   }
 }

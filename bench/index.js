@@ -1,18 +1,43 @@
 const assert = require('assert');
 const { Suite } = require('benchmark');
 
-const naiive = x => JSON.parse(JSON.stringify(x));
+console.log('Load times: ');
+
+console.time('fast-clone');
+const fastclone = require('fast-clone');
+console.timeEnd('fast-clone');
+
+console.time('lodash/clonedeep');
+const lodash = require('lodash/clonedeep');
+console.timeEnd('lodash/clonedeep');
+
+console.time('rfdc');
+const rfdc = require('rfdc');
+console.timeEnd('rfdc');
+
+console.time('clone-deep');
+const clonedeep = require('clone-deep');
+console.timeEnd('clone-deep');
+
+console.time('deep-copy');
+const deepcopy = require('deep-copy');
+console.timeEnd('deep-copy');
+
+console.time('klona');
+const klona = require('klona');
+console.timeEnd('klona');
 
 const contenders = {
-	'JSON.stringify': naiive,
-	'fast-clone': require('fast-clone'),
-	'lodash': require('lodash/clonedeep'),
-	'clone-deep': require('clone-deep'),
-	'deep-copy': require('deep-copy'),
-	'klona': require('../dist/klona')
+	'JSON.stringify': x => JSON.parse(JSON.stringify(x)),
+	'fast-clone': fastclone,
+	'lodash': lodash,
+	'rfdc': rfdc(),
+	'clone-deep': clonedeep,
+	'deep-copy': deepcopy,
+	'klona': klona,
 };
 
-console.log('Validation: ');
+console.log('\nValidation: ');
 Object.keys(contenders).forEach(name => {
 	const INPUT = require('./input');
 

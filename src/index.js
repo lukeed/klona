@@ -4,17 +4,26 @@ export function klona(x) {
 	var k, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
-		tmp = {};
-		for (k in x) {
-			if (k === '__proto__') {
-				Object.defineProperty(tmp, k, {
-					value: klona(x[k]),
-					configurable: 1,
-					enumerable: 1,
-					writable: 1,
-				});
-			} else {
-				tmp[k] = klona(x[k]);
+		if (x.constructor !== Object && typeof x.constructor === 'function') {
+			tmp = new x.constructor();
+			for (k in x) {
+				if (tmp.hasOwnProperty(k) && tmp[k] !== x[k]) {
+					tmp[k] = klona(x[k]);
+				}
+			}
+		} else {
+			tmp = {}; // null
+			for (k in x) {
+				if (k === '__proto__') {
+					Object.defineProperty(tmp, k, {
+						value: klona(x[k]),
+						configurable: true,
+						enumerable: true,
+						writable: true,
+					});
+				} else {
+					tmp[k] = klona(x[k]);
+				}
 			}
 		}
 		return tmp;
@@ -22,14 +31,14 @@ export function klona(x) {
 
 	if (str === '[object Array]') {
 		k = x.length;
-		for (tmp=new Array(k); k--;) {
+		for (tmp=Array(k); k--;) {
 			tmp[k] = klona(x[k]);
 		}
 		return tmp;
 	}
 
 	if (str === '[object Set]') {
-		tmp = new Set();
+		tmp = new Set;
 		x.forEach(function (val) {
 			tmp.add(klona(val));
 		});
@@ -37,7 +46,7 @@ export function klona(x) {
 	}
 
 	if (str === '[object Map]') {
-		tmp = new Map();
+		tmp = new Map;
 		x.forEach(function (val, key) {
 			tmp.set(klona(key), klona(val));
 		});
