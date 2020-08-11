@@ -1,4 +1,1 @@
-declare module 'klona' {
-	function klona<T>(val: T): T;
-	export = klona;
-}
+export function klona<T>(input: T): T;
