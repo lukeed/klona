@@ -1,6 +1,6 @@
 import { suite } from 'uvu';
 import * as assert from 'assert';
-import klona from '../src';
+import { klona } from '../src';
 
 const API = suite('exports');
 
