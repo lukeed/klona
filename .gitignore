@@ -5,4 +5,5 @@ node_modules
 *.log
 
 /dist
+/json
 /lite
