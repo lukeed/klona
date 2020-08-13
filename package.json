@@ -17,6 +17,10 @@
     "*.d.ts",
     "dist"
   ],
+  "modes": {
+    "default": "src/index.js",
+    "lite": "src/lite.js"
+  },
   "engines": {
     "node": ">= 8"
   },
