@@ -487,7 +487,8 @@ Strings.run();
 // ---
 
 const TypedArrays = suite('TypedArray');
-TypedArrays('buffer', () => {
+
+TypedArrays('Buffer', () => {
 	const input = Buffer.from('asd');
 	const output = klona(input);
 
@@ -504,7 +505,7 @@ TypedArrays('buffer', () => {
 	assert.equal(output.toString(), current);
 });
 
-TypedArrays('uint16array', () => {
+TypedArrays('Int16Array', () => {
 	const input = new Int16Array([42]);
 	const output = klona(input);
 
@@ -517,11 +518,13 @@ TypedArrays('uint16array', () => {
 	assert.equal(output[0], 42);
 });
 
-TypedArrays('int32array', () => {
+TypedArrays('Int32Array', () => {
 	const buf = new ArrayBuffer(8);
 	const input = new Int32Array(buf);
 	const output = klona(input);
 
+	assert.deepEqual(input, new Int32Array([0, 0]));
+	assert.deepEqual(output, new Int32Array([0, 0]));
 	assert.deepEqual(input, output);
 
 	output[1] = 42;
@@ -529,6 +532,77 @@ TypedArrays('int32array', () => {
 
 	input[0] = 22;
 	assert.equal(output[0], 0);
+});
+
+TypedArrays('Int32Array', () => {
+	const buf = new ArrayBuffer(8);
+	const input = new Int32Array(buf);
+	const output = klona(input);
+
+	assert.deepEqual(input, new Int32Array([0, 0]));
+	assert.deepEqual(output, new Int32Array([0, 0]));
+	assert.deepEqual(input, output);
+
+	output[1] = 42;
+	assert.equal(input[1], 0);
+
+	input[0] = 22;
+	assert.equal(output[0], 0);
+});
+
+TypedArrays('ArrayBuffer :: empty', () => {
+	const input = new ArrayBuffer(6);
+	const output = klona(input);
+
+	assert.deepEqual(input, output);
+
+	const view1 = new DataView(input);
+	const view2 = new DataView(output);
+
+	view1.setInt8(0, 4);
+	assert.equal(view1.getInt8(0), 4);
+	assert.equal(view2.getInt8(0), 0);
+
+	view2.setInt8(1, 8);
+	assert.equal(view1.getInt8(1), 0);
+	assert.equal(view2.getInt8(1), 8);
+});
+
+TypedArrays('ArrayBuffer :: values', () => {
+	const input = new ArrayBuffer(3);
+	const view1 = new DataView(input);
+
+	view1.setInt8(0, 4);
+	view1.setInt8(1, 5);
+	view1.setInt8(2, 6);
+
+	const output = klona(input);
+	const view2 = new DataView(output);
+
+	assert.deepEqual(input, output);
+
+	assert.equal(view2.getInt8(0), 4);
+	assert.equal(view2.getInt8(1), 5);
+	assert.equal(view2.getInt8(2), 6);
+});
+
+TypedArrays('DataView', () => {
+	const ints = new Int8Array([1, 2, 3]);
+	const input = new DataView(ints.buffer);
+	const output = klona(input);
+
+	assert.deepEqual(input, output);
+	assert.deepEqual(input.buffer, output.buffer);
+
+	input.setInt8(1, 6);
+	assert.equal(ints[1], 6);
+	assert.equal(input.getInt8(1), 6);
+	assert.equal(output.getInt8(1), 2);
+
+	output.setInt8(0, 4);
+	assert.equal(ints[0], 1);
+	assert.equal(input.getInt8(0), 1);
+	assert.equal(output.getInt8(0), 4);
 });
 
 TypedArrays.run();
