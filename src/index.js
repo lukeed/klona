@@ -63,6 +63,16 @@ export function klona(x) {
 		return tmp;
 	}
 
+	if (str === '[object DataView]') {
+		return new x.constructor( klona(x.buffer) );
+	}
+
+	if (str === '[object ArrayBuffer]') {
+		return x.slice(0);
+	}
+
+	// ArrayBuffer.isView(x)
+	// ~> `new` bcuz `Buffer.slice` => ref
 	if (str.slice(-6) === 'Array]') {
 		return new x.constructor(x);
 	}
