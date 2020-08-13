@@ -18,6 +18,7 @@
     "dist"
   ],
   "modes": {
+    "json": "src/json.js",
     "default": "src/index.js",
     "lite": "src/lite.js"
   },
