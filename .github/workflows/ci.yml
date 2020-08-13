@@ -1,6 +1,22 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+      - '.github/**'
+      - 'test/**'
+      - 'src/**'
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+  pull_request:
+    paths:
+      - '.github/**'
+      - 'test/**'
+      - 'src/**'
+    branches:
+      - master
 
 jobs:
   test:
@@ -10,10 +26,7 @@ jobs:
       matrix:
         nodejs: [8, 10, 12]
     steps:
-    - uses: actions/checkout@master
-      with:
-        fetch-depth: 1
-
+    - uses: actions/checkout@v2
     - uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.nodejs }}
