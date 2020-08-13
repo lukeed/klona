@@ -49,7 +49,7 @@ $ npm install --save klona
 ## Usage
 
 ```js
-import klona from 'klona';
+import { klona } from 'klona';
 
 const input = {
   foo: 1,
