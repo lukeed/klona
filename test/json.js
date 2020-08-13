@@ -10,3 +10,5 @@ suites.Nully(klona);
 
 suites.Objects(klona);
 suites.Arrays(klona);
+
+suites.Pollutions(klona);
