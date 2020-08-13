@@ -28,7 +28,7 @@
   "scripts": {
     "build": "bundt",
     "pretest": "npm run build",
-    "test": "uvu -r esm test"
+    "test": "uvu -r esm test -i suites"
   },
   "keywords": [
     "clone",
