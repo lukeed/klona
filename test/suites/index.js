@@ -9,6 +9,7 @@ export { default as Maps } from './map';
 export { default as Sets } from './set';
 
 export { default as TypedArrays } from './typedarray';
+export { default as Symbols } from './symbol';
 
 export { default as Dates } from './date';
 export { default as RegExps } from './regexp';

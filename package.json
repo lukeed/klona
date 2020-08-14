@@ -19,8 +19,9 @@
   ],
   "modes": {
     "json": "src/json.js",
+    "lite": "src/lite.js",
     "default": "src/index.js",
-    "lite": "src/lite.js"
+    "full": "src/full.js"
   },
   "engines": {
     "node": ">= 8"
