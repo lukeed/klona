@@ -43,7 +43,7 @@ $ npm install --save klona
 
 ## Modes
 
-There are multiple "versions" of `klona` available, which allows you to select the functionality/support-matrix that you need!
+There are multiple "versions" of `klona` available, which allows you to bring only the functionality you need!
 
 #### `klona/json`
 > **Size (gzip):** 240 bytes<br>
