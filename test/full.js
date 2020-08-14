@@ -24,4 +24,5 @@ suites.Sets(klona);
 suites.TypedArrays(klona);
 
 suites.Symbols(klona);
-// suites.Descriptors(klona);
+suites.Descriptors(klona);
+suites.Dicts(klona);
