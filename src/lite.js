@@ -4,26 +4,17 @@ export function klona(x) {
 	var k, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
-		if (x.constructor !== Object && typeof x.constructor === 'function') {
-			tmp = new x.constructor();
-			for (k in x) {
-				if (tmp.hasOwnProperty(k) && tmp[k] !== x[k]) {
-					tmp[k] = klona(x[k]);
-				}
-			}
-		} else {
-			tmp = {}; // null
-			for (k in x) {
-				if (k === '__proto__') {
-					Object.defineProperty(tmp, k, {
-						value: klona(x[k]),
-						configurable: true,
-						enumerable: true,
-						writable: true,
-					});
-				} else {
-					tmp[k] = klona(x[k]);
-				}
+		tmp = Object.create(Object.getPrototypeOf(x));
+		for (k in x) {
+			if (k === '__proto__') {
+				Object.defineProperty(tmp, k, {
+					value: klona(x[k]),
+					configurable: true,
+					enumerable: true,
+					writable: true,
+				});
+			} else if (tmp[k] !== x[k]) {
+				tmp[k] = klona(x[k]);
 			}
 		}
 		return tmp;

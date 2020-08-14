@@ -71,6 +71,25 @@ export default function (klona) {
 		assert.equal(output.val, 42);
 	});
 
+	Classes('constructor properties :: required', () => {
+		class Test {
+			constructor(num) {
+				if (num == null) {
+					throw new Error('Argument required!');
+				}
+				this.value = num;
+			}
+		}
+
+		const input = new Test(123);
+		const output = klona(input);
+
+		assert.deepEqual(input, output);
+		assert.deepEqual(output.constructor, Test);
+
+		assert.equal(output.value, 123);
+	});
+
 	Classes('constructor properties :: defaults', () => {
 		class Test {
 			constructor(num = 123) {
