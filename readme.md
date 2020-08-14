@@ -96,34 +96,73 @@ Returns a deep copy/clone of the input.
 
 ## Benchmarks
 
-> via Node.js v10.13.0
+> Running Node v12.18.3
+
+The benchmarks can be found in the [`/bench`](/bench) directory. They are separated into multiple categories:
+
+* `JSON` – compares an array of objects comprised of JSON data types (`String`, `Number`, `null`, `Array`, `Object`)
+* `LITE` – like `JSON`, but adds `RegExp`, `Date` and `undefined` values
+* `DEFAULT` – object with `RegExp`, `Date`, `Array`, `Map`, `Set`, custom class, `Int8Array`, `DataView`, `Buffer` values
+* `FULL` – like `DEFAULT`, but adds `Symbol` and non-enumerable properties
+
+> **Important:** Only candidates that pass validation step(s) are listed. <br>However, `lodash` and `clone` are kept to highlight important differences.
+
+> **Note:** The `clone/include` candidate refers to its [`includeNonEnumerable` option](https://www.npmjs.com/package/clone#api) enabled.
 
 ```
 Load times:
-  fast-clone         0.884ms
-  lodash/clonedeep  27.716ms
-  rfdc               0.782ms
-  clone-deep         4.023ms
-  deep-copy          0.513ms
-  klona              0.333ms
+  lodash/clonedeep   29.257ms
+  rfdc                0.511ms
+  clone               0.576ms
+  clone-deep          2.494ms
+  deep-copy           0.451ms
+  klona/full          0.408ms
+  klona               0.265ms
+  klona/lite          0.308ms
+  klona/json          0.263ms
 
-Validation:
-  ✘ JSON.stringify (FAILED @ "initial copy")
-  ✘ fast-clone (FAILED @ "initial copy")
-  ✔ lodash
-  ✘ rfdc (FAILED @ "initial copy")
-  ✔ clone-deep
-  ✘ deep-copy (FAILED @ "initial copy")
-  ✔ klona
+Benchmark :: JSON
+  JSON.stringify      x   50,156 ops/sec ±0.32% (93 runs sampled)
+  lodash              x   44,269 ops/sec ±0.48% (94 runs sampled)
+  rfdc                x  202,428 ops/sec ±0.91% (94 runs sampled)
+  clone               x   38,947 ops/sec ±0.34% (97 runs sampled)
+  clone/include       x   25,021 ops/sec ±0.22% (93 runs sampled)
+  clone-deep          x   98,676 ops/sec ±0.20% (93 runs sampled)
+  deep-copy           x  129,432 ops/sec ±0.25% (98 runs sampled)
+  klona/full          x   52,482 ops/sec ±0.26% (98 runs sampled)
+  klona               x  257,905 ops/sec ±0.54% (97 runs sampled)
+  klona/lite          x  301,324 ops/sec ±0.31% (97 runs sampled)
+  klona/json          x  336,300 ops/sec ±0.17% (96 runs sampled)
 
-Benchmark:
-  JSON.stringify   x  36,628 ops/sec ±1.34% (89 runs sampled)
-  fast-clone       x  23,518 ops/sec ±1.18% (91 runs sampled)
-  lodash           x  33,810 ops/sec ±1.34% (94 runs sampled)
-  rfdc             x 181,634 ops/sec ±0.71% (95 runs sampled)
-  clone-deep       x  84,558 ops/sec ±0.19% (96 runs sampled)
-  deep-copy        x 112,866 ops/sec ±1.26% (94 runs sampled)
-  klona            x 220,356 ops/sec ±0.34% (97 runs sampled)
+Benchmark :: LITE
+  lodash              x   35,046 ops/sec ±0.20% (96 runs sampled)
+  clone               x   35,425 ops/sec ±0.46% (93 runs sampled)
+  clone/include       x   22,296 ops/sec ±0.31% (95 runs sampled)
+  clone-deep          x   85,550 ops/sec ±0.25% (97 runs sampled)
+  klona/full          x   46,303 ops/sec ±0.30% (96 runs sampled)
+  klona               x  211,161 ops/sec ±0.19% (99 runs sampled)
+  klona/lite          x  241,172 ops/sec ±0.17% (97 runs sampled)
+
+Benchmark :: DEFAULT
+  lodash              x   48,006 ops/sec ±0.34% (95 runs sampled)
+    ✘ Buffer
+    ✘ Map keys
+  clone               x   91,191 ops/sec ±0.24% (94 runs sampled)
+    ✘ DataView
+  clone/include       x   59,209 ops/sec ±0.28% (96 runs sampled)
+    ✘ DataView
+  klona/full          x   84,333 ops/sec ±0.27% (95 runs sampled)
+  klona               x  208,685 ops/sec ±0.23% (95 runs sampled)
+
+Benchmark :: FULL
+  lodash              x   51,634 ops/sec ±0.44% (94 runs sampled)
+    ✘ Buffer
+    ✘ Map keys
+    ✘ Missing non-enumerable Properties
+  clone/include       x   44,020 ops/sec ±0.31% (93 runs sampled)
+    ✘ DataView
+    ✘ Incorrect non-enumerable Properties
+  klona/full          x   78,217 ops/sec ±0.61% (97 runs sampled)
 ```
 
 
