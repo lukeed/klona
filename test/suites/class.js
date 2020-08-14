@@ -108,5 +108,41 @@ export default function (klona) {
 		assert.equal(output.val, 42);
 	});
 
+	Classes('inheritance', () => {
+		class Animal {
+			constructor() {
+				this.cute = true;
+			}
+			get carbon() {
+				return true;
+			}
+		}
+
+		class Dog extends Animal {
+			constructor(name) {
+				super();
+				this.name = name;
+			}
+			bark() {
+				console.log('woof');
+			}
+		}
+
+		const input = new Dog('spot');
+		const output = klona(input);
+
+		assert.deepEqual(input, output);
+		assert.deepEqual(input.name, output.name);
+		assert.equal(output instanceof Animal, true);
+		assert.deepEqual(output.constructor, Dog);
+		assert.deepEqual(output.__proto__, {});
+		assert.equal(output.carbon, true);
+
+		assert.deepStrictEqual(
+			Object.getOwnPropertyDescriptors(input),
+			Object.getOwnPropertyDescriptors(output),
+		);
+	});
+
 	Classes.run();
 }
