@@ -29,8 +29,6 @@
 
 Unlike a "shallow copy" (eg, `Object.assign`), a "deep clone" recursively traverses a source input and copies its _values_ &mdash; instead of _references_ to its values &mdash; into a new instance of that input. The result is a structurally equivalent clone that operates independently of the original source and controls its own values.
 
-Additionally, this module is delivered as:
-
 > **Why "klona"?** It's "clone" in Swedish.<br>
 > **What's with the sheep?** [Dolly](https://en.wikipedia.org/wiki/Dolly_(sheep)).
 
@@ -40,6 +38,7 @@ Additionally, this module is delivered as:
 ```
 $ npm install --save klona
 ```
+
 
 ## Modes
 
