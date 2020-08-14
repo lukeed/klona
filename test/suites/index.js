@@ -9,11 +9,13 @@ export { default as Maps } from './map';
 export { default as Sets } from './set';
 
 export { default as TypedArrays } from './typedarray';
+export { default as Descriptors } from './descriptor';
 export { default as Symbols } from './symbol';
 
 export { default as Dates } from './date';
 export { default as RegExps } from './regexp';
 
+export { default as Dicts } from './dictionary';
 export { default as Objects } from './object';
 export { default as Arrays } from './array';
 
