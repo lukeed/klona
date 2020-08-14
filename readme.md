@@ -17,7 +17,7 @@
   </a>
 </div>
 
-<div align="center">A tiny (423B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
+<div align="center">A tiny (240B to 507B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
 
 
 ## Features
@@ -25,15 +25,11 @@
 * Super tiny and [performant](#benchmarks)
 * Deep clone / recursive copies
 * Safely handles complex data types<br>
-    _Array, Date, Map, Object, RegExp, Set, TypedArray_
+    _Array, Date, Map, Object, RegExp, Set, TypedArray, and more_
 
 Unlike a "shallow copy" (eg, `Object.assign`), a "deep clone" recursively traverses a source input and copies its _values_ &mdash; instead of _references_ to its values &mdash; into a new instance of that input. The result is a structurally equivalent clone that operates independently of the original source and controls its own values.
 
 Additionally, this module is delivered as:
-
-* **ES Module**: [`dist/index.mjs`](https://unpkg.com/klona/dist/index.mjs)
-* **CommonJS**: [`dist/index.js`](https://unpkg.com/klona/dist/index.js)
-* **UMD**: [`dist/klona.min.js`](https://unpkg.com/klona)
 
 > **Why "klona"?** It's "clone" in Swedish.<br>
 > **What's with the sheep?** [Dolly](https://en.wikipedia.org/wiki/Dolly_(sheep)).
@@ -43,6 +39,46 @@ Additionally, this module is delivered as:
 
 ```
 $ npm install --save klona
+```
+
+## Modes
+
+There are multiple "versions" of `klona` available, which allows you to select the functionality/support-matrix that you need!
+
+#### `klona/json`
+> **Size (gzip):** 240 bytes<br>
+> **Availability:** [CommonJS](https://unpkg.com/klona/json/index.js), [ES Module](https://unpkg.com/klona/json/index.mjs), [UMD](https://unpkg.com/klona/json/index.min.js)<br>
+> **Ability:** JSON data types
+
+```js
+import { klona } from 'klona/json';
+```
+
+#### `klona/lite`
+> **Size (gzip):** 354 bytes<br>
+> **Availability:** [CommonJS](https://unpkg.com/klona/lite/index.js), [ES Module](https://unpkg.com/klona/lite/index.mjs), [UMD](https://unpkg.com/klona/lite/index.min.js)<br>
+> **Ability:** extends `klona/json` with support for custom class, Date, and RegExp
+
+```js
+import { klona } from 'klona/lite';
+```
+
+#### `klona`
+> **Size (gzip):** 451 bytes<br>
+> **Availability:** [CommonJS](https://unpkg.com/klona/dist/index.js), [ES Module](https://unpkg.com/klona/dist/index.mjs), [UMD](https://unpkg.com/klona/dist/index.min.js)<br>
+> **Ability:** extends `klona/lite` with support for Map, Set, DataView, ArrayBuffer, TypedArray
+
+```js
+import { klona } from 'klona';
+```
+
+#### `klona/full`
+> **Size (gzip):** 507 bytes<br>
+> **Availability:** [CommonJS](https://unpkg.com/klona/full/index.js), [ES Module](https://unpkg.com/klona/full/index.mjs), [UMD](https://unpkg.com/klona/full/index.min.js)<br>
+> **Ability:** extends `klona` with support for Symbol properties and and non-enumerable properties
+
+```js
+import { klona } from 'klona/full';
 ```
 
 
@@ -170,7 +206,7 @@ Benchmark :: FULL
 
 * [dlv](https://github.com/developit/dlv) – safely **read** from deep properties in 120 bytes
 * [dset](https://github.com/lukeed/dset) – safely **write** into deep properties in 160 bytes
-* [dequal](https://github.com/lukeed/dequal) – safely check for deep equality in 247 bytes
+* [dequal](https://github.com/lukeed/dequal) – safely check for deep equality in 304 to 489 bytes
 
 
 ## License
