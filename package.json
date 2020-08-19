@@ -51,6 +51,7 @@
   "scripts": {
     "build": "bundt",
     "pretest": "npm run build",
+    "postbuild": "echo \"lite full json\" | xargs -n1 cp -v index.d.ts",
     "test": "uvu -r esm test -i suites"
   },
   "keywords": [
