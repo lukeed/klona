@@ -34,6 +34,65 @@ export default function (klona) {
 		assert.equal(output.val, 42);
 	});
 
+	Classes('prototype methods :: manual', () => {
+		function Test() {}
+
+		Test.prototype = {
+			count: 0,
+			increment() {
+				this.count++;
+			}
+		};
+
+		const input = new Test();
+		const output = klona(input);
+
+		assert.equal(input.count, 0);
+		assert.equal(output.count, 0);
+
+		assert.equal(typeof input.increment, 'function');
+		assert.equal(typeof output.increment, 'function');
+
+		output.increment();
+		assert.equal(input.count, 0);
+		assert.equal(output.count, 1);
+
+		input.increment();
+		assert.equal(input.count, 1);
+		assert.equal(output.count, 1);
+	});
+
+	Classes('prototype methods :: class', () => {
+		class Test {
+			constructor() {
+				this.count = 0;
+			}
+			increment() {
+				this.count++
+			}
+		}
+
+		const input = new Test();
+		const output = klona(input);
+
+		assert.deepEqual(input, output);
+		assert.deepEqual(output.__proto__, Test.prototype);
+
+		assert.equal(input.count, 0);
+		assert.equal(output.count, 0);
+
+		assert.equal(typeof input.increment, 'function');
+		assert.equal(typeof output.increment, 'function');
+
+		output.increment();
+		assert.equal(input.count, 0);
+		assert.equal(output.count, 1);
+
+		input.increment();
+		assert.equal(input.count, 1);
+		assert.equal(output.count, 1);
+	});
+
 	Classes('constructor properties', () => {
 		function Test (num) {
 			this.value = num;

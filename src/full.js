@@ -11,7 +11,7 @@ export function klona(x) {
 	var i=0, k, list, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
-		tmp = typeof x.constructor === 'function' ? new x.constructor() : Object.create(null);
+		tmp = Object.create(x.__proto__ || null);
 	} else if (str === '[object Array]') {
 		tmp = Array(x.length);
 	} else if (str === '[object Set]') {
@@ -39,7 +39,7 @@ export function klona(x) {
 	}
 
 	if (tmp) {
-		for (list = Object.getOwnPropertySymbols(x); i < list.length; i++) {
+		for (list=Object.getOwnPropertySymbols(x); i < list.length; i++) {
 			set(tmp, list[i], Object.getOwnPropertyDescriptor(x, list[i]));
 		}
 
