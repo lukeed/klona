@@ -17,7 +17,7 @@
   </a>
 </div>
 
-<div align="center">A tiny (240B to 507B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
+<div align="center">A tiny (240B to 501B) and fast utility to "deep clone" Objects, Arrays, Dates, RegExps, and more!</div>
 
 
 ## Features
@@ -72,7 +72,7 @@ import { klona } from 'klona';
 ```
 
 #### `klona/full`
-> **Size (gzip):** 507 bytes<br>
+> **Size (gzip):** 501 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/klona/full/index.js), [ES Module](https://unpkg.com/klona/full/index.mjs), [UMD](https://unpkg.com/klona/full/index.min.js)<br>
 > **Ability:** extends `klona` with support for Symbol properties and and non-enumerable properties
 
