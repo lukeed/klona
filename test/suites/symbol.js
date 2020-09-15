@@ -15,9 +15,7 @@ export default function (klona) {
 	Symbols('object :: enumerable key', () => {
 		const key = Symbol('key');
 		const input = { foo: 123, [key]: 456 };
-		console.log('START');
 		const output = klona(input);
-		console.log('~> output', output);
 
 		assert.equal(output[key], 456);
 		assert.deepStrictEqual(input, output);
