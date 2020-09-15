@@ -18,6 +18,8 @@ export default function (klona) {
 
 		assert.notEqual(({})['a0'], true, 'Safe POJO');
 		assert.notEqual(new Object()['a0'], true, 'Safe Object');
+		assert.notEqual(Object.create(null)['a0'], true, 'Safe dictionary');
+		assert.notEqual(Object.create(Object.prototype)['a0'], true, 'Safe prototype');
 
 		assert.notEqual(input['a0'], true, 'Safe input');
 		assert.notEqual(output['a0'], true, 'Safe output');
@@ -36,9 +38,8 @@ export default function (klona) {
 
 		assert.notEqual(({})['a0'], true, 'Safe POJO');
 		assert.notEqual(new Object()['a0'], true, 'Safe Object');
-
-		assert.notEqual(input['a0'], true, 'Safe input');
-		assert.notEqual(output['a0'], true, 'Safe output');
+		assert.notEqual(Object.create(null)['a0'], true, 'Safe dictionary');
+		assert.notEqual(Object.create(Object.prototype)['a0'], true, 'Safe prototype');
 	});
 
 	Pollution('prototype', () => {
@@ -53,6 +54,8 @@ export default function (klona) {
 
 		assert.notEqual(({})['hello'], 'world', 'Safe POJO');
 		assert.notEqual(new Object()['hello'], 'world', 'Safe Object');
+		assert.notEqual(Object.create(null)['hello'], 'world', 'Safe dictionary');
+		assert.notEqual(Object.create(Object.prototype)['hello'], 'world', 'Safe prototype');
 
 		assert.notEqual(input['hello'], 'world', 'Safe input');
 		assert.notEqual(output['hello'], 'world', 'Safe output');
