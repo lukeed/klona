@@ -45,5 +45,18 @@ export default function (klona) {
 		assert.equal(input.bar.c[0].hello, 1);
 	});
 
+	Objects('Object.create', () => {
+		const input = Object.create({
+			method() {
+				return 'foo';
+			}
+		});
+
+		const output = klona(input);
+
+		assert.equal(input.method(), 'foo');
+		assert.equal(output.method(), 'foo');
+	});
+
 	Objects.run();
 }
