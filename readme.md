@@ -157,47 +157,47 @@ Load times:
   klona/json          0.263ms
 
 Benchmark :: JSON
-  JSON.stringify      x   50,156 ops/sec ±0.32% (93 runs sampled)
-  lodash              x   44,269 ops/sec ±0.48% (94 runs sampled)
-  rfdc                x  202,428 ops/sec ±0.91% (94 runs sampled)
-  clone               x   38,947 ops/sec ±0.34% (97 runs sampled)
-  clone/include       x   25,021 ops/sec ±0.22% (93 runs sampled)
-  clone-deep          x   98,676 ops/sec ±0.20% (93 runs sampled)
-  deep-copy           x  129,432 ops/sec ±0.25% (98 runs sampled)
-  klona/full          x   52,482 ops/sec ±0.26% (98 runs sampled)
-  klona               x  257,905 ops/sec ±0.54% (97 runs sampled)
-  klona/lite          x  301,324 ops/sec ±0.31% (97 runs sampled)
-  klona/json          x  336,300 ops/sec ±0.17% (96 runs sampled)
+  JSON.stringify      x   53,899 ops/sec ±0.76% (92 runs sampled)
+  lodash              x   46,800 ops/sec ±0.86% (90 runs sampled)
+  rfdc                x  221,456 ops/sec ±0.88% (92 runs sampled)
+  clone               x   39,537 ops/sec ±0.68% (92 runs sampled)
+  clone/include       x   25,488 ops/sec ±1.06% (88 runs sampled)
+  clone-deep          x   99,998 ops/sec ±0.91% (93 runs sampled)
+  deep-copy           x  141,270 ops/sec ±0.95% (92 runs sampled)
+  klona/full          x   55,016 ops/sec ±0.68% (94 runs sampled)
+  klona               x  281,215 ops/sec ±0.77% (93 runs sampled)
+  klona/lite          x  318,481 ops/sec ±0.72% (91 runs sampled)
+  klona/json          x  334,932 ops/sec ±0.66% (93 runs sampled)
 
 Benchmark :: LITE
-  lodash              x   35,046 ops/sec ±0.20% (96 runs sampled)
-  clone               x   35,425 ops/sec ±0.46% (93 runs sampled)
-  clone/include       x   22,296 ops/sec ±0.31% (95 runs sampled)
-  clone-deep          x   85,550 ops/sec ±0.25% (97 runs sampled)
-  klona/full          x   46,303 ops/sec ±0.30% (96 runs sampled)
-  klona               x  211,161 ops/sec ±0.19% (99 runs sampled)
-  klona/lite          x  241,172 ops/sec ±0.17% (97 runs sampled)
+  lodash              x   36,992 ops/sec ±0.65% (91 runs sampled)
+  clone               x   35,974 ops/sec ±1.13% (88 runs sampled)
+  clone/include       x   22,609 ops/sec ±1.02% (91 runs sampled)
+  clone-deep          x   92,846 ops/sec ±0.66% (93 runs sampled)
+  klona/full          x   47,873 ops/sec ±0.83% (88 runs sampled)
+  klona               x  226,638 ops/sec ±1.16% (93 runs sampled)
+  klona/lite          x  257,900 ops/sec ±0.82% (93 runs sampled)
 
 Benchmark :: DEFAULT
-  lodash              x   48,006 ops/sec ±0.34% (95 runs sampled)
+  lodash              x   55,914 ops/sec ±0.75% (93 runs sampled)
     ✘ Buffer
     ✘ Map keys
-  clone               x   91,191 ops/sec ±0.24% (94 runs sampled)
+  clone               x   92,127 ops/sec ±0.83% (94 runs sampled)
     ✘ DataView
-  clone/include       x   59,209 ops/sec ±0.28% (96 runs sampled)
+  clone/include       x   62,052 ops/sec ±0.88% (93 runs sampled)
     ✘ DataView
-  klona/full          x   84,333 ops/sec ±0.27% (95 runs sampled)
-  klona               x  208,685 ops/sec ±0.23% (95 runs sampled)
+  klona/full          x   90,308 ops/sec ±0.68% (89 runs sampled)
+  klona               x  230,257 ops/sec ±0.71% (91 runs sampled)
 
 Benchmark :: FULL
-  lodash              x   51,634 ops/sec ±0.44% (94 runs sampled)
+  lodash              x   60,361 ops/sec ±0.65% (91 runs sampled)
     ✘ Buffer
     ✘ Map keys
     ✘ Missing non-enumerable Properties
-  clone/include       x   44,020 ops/sec ±0.31% (93 runs sampled)
+  clone/include       x   47,263 ops/sec ±0.85% (93 runs sampled)
     ✘ DataView
     ✘ Incorrect non-enumerable Properties
-  klona/full          x   78,217 ops/sec ±0.61% (97 runs sampled)
+  klona/full          x   82,346 ops/sec ±0.62% (93 runs sampled)
 ```
 
 
