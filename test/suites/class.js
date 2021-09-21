@@ -1,11 +1,11 @@
-import { suite } from 'uvu';
 import * as assert from 'assert';
+import { suite } from 'uvu';
 
 export default function (klona) {
-	const  Classes = suite('class');
+	const Classes = suite('class');
 
 	Classes('class', () => {
-		class Foobar {}
+		class Foobar { }
 		const input = new Foobar();
 		const output = klona(input);
 
@@ -20,7 +20,7 @@ export default function (klona) {
 
 	// @see https://github.com/lukeed/klona/issues/14
 	Classes('prototype', () => {
-		function Test () {}
+		function Test() { }
 		Test.prototype.val = 42;
 
 		const input = new Test();
@@ -35,7 +35,7 @@ export default function (klona) {
 	});
 
 	Classes('prototype methods :: manual', () => {
-		function Test() {}
+		function Test() { }
 
 		Test.prototype = {
 			count: 0,
@@ -94,7 +94,7 @@ export default function (klona) {
 	});
 
 	Classes('constructor properties', () => {
-		function Test (num) {
+		function Test(num) {
 			this.value = num;
 		}
 
@@ -201,6 +201,20 @@ export default function (klona) {
 			Object.getOwnPropertyDescriptors(input),
 			Object.getOwnPropertyDescriptors(output),
 		);
+	});
+
+	Classes('class assign', () => {
+		class Foobar {
+			constructor(data = undefined) {
+				Object.assign(this, data);
+			}
+		}
+		const input = new Foobar({ test: 123 });
+		const output = klona(input);
+
+		assert.deepEqual(input, output);
+		assert.equal(input.constructor, output.constructor);
+		assert.equal(output.constructor.name, 'Foobar');
 	});
 
 	Classes.run();

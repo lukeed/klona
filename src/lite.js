@@ -1,13 +1,13 @@
 export function klona(x) {
 	if (typeof x !== 'object') return x;
 
-	var k, tmp, str=Object.prototype.toString.call(x);
+	var k, tmp, str = Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
 		if (x.constructor !== Object && typeof x.constructor === 'function') {
 			tmp = new x.constructor();
 			for (k in x) {
-				if (tmp.hasOwnProperty(k) && tmp[k] !== x[k]) {
+				if (tmp[k] !== x[k]) {
 					tmp[k] = klona(x[k]);
 				}
 			}
@@ -31,7 +31,7 @@ export function klona(x) {
 
 	if (str === '[object Array]') {
 		k = x.length;
-		for (tmp=Array(k); k--;) {
+		for (tmp = Array(k); k--;) {
 			tmp[k] = klona(x[k]);
 		}
 		return tmp;
