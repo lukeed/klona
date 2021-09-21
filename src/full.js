@@ -8,7 +8,7 @@ function set(obj, key, val) {
 export function klona(x) {
 	if (typeof x !== 'object') return x;
 
-	var i = 0, k, list, tmp, str = Object.prototype.toString.call(x);
+	var i=0, k, list, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
 		tmp = Object.create(x.__proto__ || null);
@@ -29,7 +29,7 @@ export function klona(x) {
 	} else if (str === '[object RegExp]') {
 		tmp = new RegExp(x.source, x.flags);
 	} else if (str === '[object DataView]') {
-		tmp = new x.constructor(klona(x.buffer));
+		tmp = new x.constructor( klona(x.buffer) );
 	} else if (str === '[object ArrayBuffer]') {
 		tmp = x.slice(0);
 	} else if (str.slice(-6) === 'Array]') {
@@ -39,12 +39,12 @@ export function klona(x) {
 	}
 
 	if (tmp) {
-		for (list = Object.getOwnPropertySymbols(x); i < list.length; i++) {
+		for (list=Object.getOwnPropertySymbols(x); i < list.length; i++) {
 			set(tmp, list[i], Object.getOwnPropertyDescriptor(x, list[i]));
 		}
 
-		for (i = 0, list = Object.getOwnPropertyNames(x); i < list.length; i++) {
-			if (Object.hasOwnProperty.call(tmp, k = list[i]) && tmp[k] === x[k]) continue;
+		for (i=0, list=Object.getOwnPropertyNames(x); i < list.length; i++) {
+			if (Object.hasOwnProperty.call(tmp, k=list[i]) && tmp[k] === x[k]) continue;
 			set(tmp, k, Object.getOwnPropertyDescriptor(x, k));
 		}
 	}

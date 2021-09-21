@@ -2,8 +2,8 @@ export function klona(val) {
 	var k, out, tmp;
 
 	if (Array.isArray(val)) {
-		out = Array(k = val.length);
-		while (k--) out[k] = (tmp = val[k]) && typeof tmp === 'object' ? klona(tmp) : tmp;
+		out = Array(k=val.length);
+		while (k--) out[k] = (tmp=val[k]) && typeof tmp === 'object' ? klona(tmp) : tmp;
 		return out;
 	}
 
@@ -18,7 +18,7 @@ export function klona(val) {
 					writable: true,
 				});
 			} else {
-				out[k] = (tmp = val[k]) && typeof tmp === 'object' ? klona(tmp) : tmp;
+				out[k] = (tmp=val[k]) && typeof tmp === 'object' ? klona(tmp) : tmp;
 			}
 		}
 		return out;
