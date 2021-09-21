@@ -1,5 +1,5 @@
-import * as assert from 'assert';
 import { suite } from 'uvu';
+import * as assert from 'assert';
 
 export default function (klona) {
 	const  Classes = suite('class');
