@@ -203,9 +203,9 @@ export default function (klona) {
 		);
 	});
 
-	Classes('class assign', () => {
+	Classes('constructor properties :: Object.assign', () => {
 		class Foobar {
-			constructor(data = undefined) {
+			constructor(data) {
 				Object.assign(this, data);
 			}
 		}
