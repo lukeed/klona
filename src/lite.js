@@ -7,7 +7,7 @@ export function klona(x) {
 		if (x.constructor !== Object && typeof x.constructor === 'function') {
 			tmp = new x.constructor();
 			for (k in x) {
-				if (tmp.hasOwnProperty(k) && tmp[k] !== x[k]) {
+				if (x.hasOwnProperty(k) && tmp[k] !== x[k]) {
 					tmp[k] = klona(x[k]);
 				}
 			}

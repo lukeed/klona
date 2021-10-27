@@ -203,5 +203,19 @@ export default function (klona) {
 		);
 	});
 
+	Classes('constructor properties :: Object.assign', () => {
+		class Foobar {
+			constructor(data) {
+				Object.assign(this, data);
+			}
+		}
+		const input = new Foobar({ test: 123 });
+		const output = klona(input);
+
+		assert.deepEqual(input, output);
+		assert.equal(input.constructor, output.constructor);
+		assert.equal(output.constructor.name, 'Foobar');
+	});
+
 	Classes.run();
 }
