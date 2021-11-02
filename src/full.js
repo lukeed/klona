@@ -36,6 +36,8 @@ export function klona(x) {
 		// ArrayBuffer.isView(x)
 		// ~> `new` bcuz `Buffer.slice` => ref
 		tmp = new x.constructor(x);
+	} else if (str === '[object Blob]') {
+		tmp = x.slice(0, x.size, x.type);
 	}
 
 	if (tmp) {
