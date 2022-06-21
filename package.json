@@ -55,12 +55,12 @@
     "node": ">= 8"
   },
   "scripts": {
-    "build": "pnpm clear && bundt && pnpm postbuild",
+    "build": "npm run clear && bundt && npm run postbuild",
     "pretest": "npm run build",
     "postbuild": "echo \"dist lite full json circular\" | xargs -n1 cp -v index.d.ts",
     "test": "uvu -r esm test -i suites",
     "clear": "rm -rf dist full json lite circular",
-    "build2": "pnpm clear && pnpm run-p build2:* && pnpm postbuild",
+    "build2": "npm run clear && npm run run-p build2:* && npm run postbuild",
     "build2:json-esm": "esbuild --minify --format=esm --platform=neutral --outfile=json/index.mjs src/json.js",
     "build2:json-cjs": "esbuild --minify --format=cjs --platform=neutral --outfile=json/index.js src/json.js",
     "build2:lite-esm": "esbuild --minify --format=esm --platform=neutral --outfile=lite/index.mjs src/lite.js",
