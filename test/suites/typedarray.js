@@ -67,7 +67,7 @@ export default function(klona) {
 		assert.equal(output[0], 0);
 	});
 
-	test('ArrayBuffer :: empty', () => {
+	test('ArrayBuffer :: empty', () => {
 		const input = new ArrayBuffer(6);
 		const output = klona(input);
 
@@ -85,7 +85,7 @@ export default function(klona) {
 		assert.equal(view2.getInt8(1), 8);
 	});
 
-	test('ArrayBuffer :: values', () => {
+	test('ArrayBuffer :: values', () => {
 		const input = new ArrayBuffer(3);
 		const view1 = new DataView(input);
 
