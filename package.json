@@ -22,22 +22,22 @@
   ],
   "exports": {
     ".": {
-      "types": "./types.d.ts",
+      "types": "./index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./json": {
-      "types": "./types.d.ts",
+      "types": "./index.d.ts",
       "import": "./json/index.mjs",
       "require": "./json/index.js"
     },
     "./lite": {
-      "types": "./types.d.ts",
+      "types": "./index.d.ts",
       "import": "./lite/index.mjs",
       "require": "./lite/index.js"
     },
     "./full": {
-      "types": "./types.d.ts",
+      "types": "./index.d.ts",
       "import": "./full/index.mjs",
       "require": "./full/index.js"
     },
