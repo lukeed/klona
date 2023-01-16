@@ -1,6 +1,6 @@
 {
   "name": "klona",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "repository": "lukeed/klona",
   "description": "A tiny (240B to 501B) and fast utility to \"deep clone\" Objects, Arrays, Dates, RegExps, and more!",
   "module": "dist/index.mjs",
