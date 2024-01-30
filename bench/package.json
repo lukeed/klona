@@ -1,5 +1,8 @@
 {
   "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
   "devDependencies": {
     "benchmark": "2.1.4",
     "clone": "2.1.2",
@@ -8,6 +11,7 @@
     "deepcopy": "2.0.0",
     "klona": "file:../",
     "lodash": "4.17.19",
-    "rfdc": "1.1.4"
+    "rfdc": "1.1.4",
+    "fclone": "^1.0.11"
   }
 }

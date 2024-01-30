@@ -15,6 +15,10 @@ console.time('clone');
 const clone = require('clone');
 console.timeEnd('clone');
 
+console.time('fclone');
+const fclone = require('fclone');
+console.timeEnd('fclone');
+
 console.time('clone-deep');
 const clonedeep = require('clone-deep');
 console.timeEnd('clone-deep');
@@ -38,6 +42,10 @@ console.timeEnd('klona/lite');
 console.time('klona/json');
 const json = require('klona/json');
 console.timeEnd('klona/json');
+
+console.time('klona/circular');
+const circular = require('klona/circular');
+console.timeEnd('klona/circular');
 
 const naiive = x => JSON.parse(JSON.stringify(x));
 const clone_full = x => clone(x, { includeNonEnumerable: true });
@@ -84,35 +92,51 @@ runner('json', {
 	'rfdc': rfdc(),
 	'clone': clone,
 	'clone/include': clone_full,
+	'fclone': fclone,
 	'clone-deep': clonedeep,
 	'deep-copy': deepcopy,
 	'klona/full': full.klona,
 	'klona': klona.klona,
 	'klona/lite': lite.klona,
 	'klona/json': json.klona,
+	'klona/circular': circular.klona,
 });
 
 runner('lite', {
 	'lodash': lodash,
 	'clone': clone,
 	'clone/include': clone_full,
+	'fclone': fclone,
 	'clone-deep': clonedeep,
 	'klona/full': full.klona,
 	'klona': klona.klona,
 	'klona/lite': lite.klona,
+	'klona/circular': circular.klona,
 });
 
 runner('default', {
 	'lodash': lodash, // FAIL @ Buffer, Map keys
 	'clone': clone, // FAIL @ DataView
 	'clone/include': clone_full, // FAIL @ DataView
+	'fclone': fclone,
 	// FAIL @ "Set #2" & "Map #2" :: 'clone-deep': clonedeep,
 	'klona/full': full.klona,
 	'klona': klona.klona,
+	'klona/circular': circular.klona,
 });
 
 runner('full', {
 	'lodash': lodash, // FAIL @ Buffer, Map keys, non-enumerable properties,
 	'clone/include': clone_full, // FAIL @ DataView, non-enumerable descriptors
+	'fclone': fclone,
 	'klona/full': full.klona,
+	'klona/circular': circular.klona,
+});
+
+runner('circular', {
+	'lodash': lodash, 
+	'clone/include': clone_full, // FAIL @ DataView, non-enumerable descriptors
+	'fclone': fclone,
+	'klona/full': full.klona,
+	'klona/circular': circular.klona,
 });
