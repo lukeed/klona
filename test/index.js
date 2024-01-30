@@ -22,3 +22,4 @@ suites.Maps(klona);
 suites.Sets(klona);
 
 suites.TypedArrays(klona);
+suites.Blobs(klona);
