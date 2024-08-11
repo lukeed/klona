@@ -77,7 +77,7 @@ import { klona } from 'klona';
 #### `klona/full`
 > **Size (gzip):** 501 bytes<br>
 > **Availability:** [CommonJS](https://unpkg.com/klona/full/index.js), [ES Module](https://unpkg.com/klona/full/index.mjs), [UMD](https://unpkg.com/klona/full/index.min.js)<br>
-> **Ability:** extends `klona` with support for Symbol properties and and non-enumerable properties
+> **Ability:** extends `klona` with support for Symbol properties and non-enumerable properties
 
 ```js
 import { klona } from 'klona/full';
