@@ -22,3 +22,4 @@ export { default as Arrays } from './array';
 export { default as Functions } from './function';
 export { default as Pollutions } from './pollution';
 export { default as Classes } from './class';
+export { default as Circular } from './circular';

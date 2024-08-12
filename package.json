@@ -18,6 +18,7 @@
     "dist",
     "full",
     "json",
+    "circular",
     "lite"
   ],
   "exports": {
@@ -41,22 +42,39 @@
       "import": "./full/index.mjs",
       "require": "./full/index.js"
     },
+    "./circular": {
+      "import": "./circular/index.mjs",
+      "require": "./circular/index.js"
+    },
     "./package.json": "./package.json"
   },
   "modes": {
     "json": "src/json.js",
     "lite": "src/lite.js",
     "default": "src/index.js",
-    "full": "src/full.js"
+    "full": "src/full.js",
+    "circular": "src/circular.js"
   },
   "engines": {
     "node": ">= 8"
   },
   "scripts": {
-    "build": "bundt",
+    "build": "npm run clear && bundt && npm run postbuild",
     "pretest": "npm run build",
-    "postbuild": "echo \"lite full json\" | xargs -n1 cp -v index.d.ts",
-    "test": "uvu -r esm test -i suites"
+    "postbuild": "echo \"dist lite full json circular\" | xargs -n1 cp -v index.d.ts",
+    "test": "uvu -r esm test -i suites",
+    "clear": "rm -rf dist full json lite circular",
+    "build2": "npm run clear && npm run run-p build2:* && npm run postbuild",
+    "build2:json-esm": "esbuild --minify --format=esm --platform=neutral --outfile=json/index.mjs src/json.js",
+    "build2:json-cjs": "esbuild --minify --format=cjs --platform=neutral --outfile=json/index.js src/json.js",
+    "build2:lite-esm": "esbuild --minify --format=esm --platform=neutral --outfile=lite/index.mjs src/lite.js",
+    "build2:lite-cjs": "esbuild --minify --format=cjs --platform=neutral --outfile=lite/index.js src/lite.js",
+    "build2:dflt-esm": "esbuild --minify --format=esm --platform=neutral --outfile=dist/index.mjs src/index.js",
+    "build2:dflt-cjs": "esbuild --minify --format=cjs --platform=neutral --outfile=dist/index.js src/index.js",
+    "build2:full-esm": "esbuild --minify --format=esm --platform=neutral --outfile=full/index.mjs src/full.js",
+    "build2:full-cjs": "esbuild --minify --format=cjs --platform=neutral --outfile=full/index.js src/full.js",
+    "build2:circ-esm": "esbuild --minify --format=esm --platform=neutral --outfile=circular/index.mjs src/circular.js",
+    "build2:circ-cjs": "esbuild --minify --format=cjs --platform=neutral --outfile=circular/index.js src/circular.js"
   },
   "keywords": [
     "clone",
@@ -68,7 +86,9 @@
   ],
   "devDependencies": {
     "bundt": "1.0.2",
+    "esbuild": "^0.14.46",
     "esm": "3.2.25",
+    "npm-run-all": "^4.1.5",
     "uvu": "0.5.2"
   }
 }
