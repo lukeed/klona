@@ -71,6 +71,10 @@ export function klona(x) {
 		return x.slice(0);
 	}
 
+	if (str === '[object Blob]') {
+		return x.slice(0, x.size, x.type);
+	}
+
 	// ArrayBuffer.isView(x)
 	// ~> `new` bcuz `Buffer.slice` => ref
 	if (str.slice(-6) === 'Array]') {
