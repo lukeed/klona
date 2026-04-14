@@ -11,7 +11,7 @@ export function klona(x) {
 	var i=0, k, list, tmp, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
-		tmp = Object.create(x.__proto__ || null);
+		tmp = Object.create(x.constructor ? x.constructor.prototype : null);
 	} else if (str === '[object Array]') {
 		tmp = Array(x.length);
 	} else if (str === '[object Set]') {

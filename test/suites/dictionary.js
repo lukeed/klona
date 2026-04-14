@@ -10,6 +10,7 @@ export default function (klona) {
 		let output = klona(input);
 		assert.deepEqual(input, output);
 		assert.equal(output.constructor, undefined);
+		assert.equal(Object.getPrototypeOf(output), null);
 
 		output.foo = 123;
 		assert.equal(input.foo, undefined);
@@ -23,6 +24,7 @@ export default function (klona) {
 		let output = klona(input);
 		assert.deepEqual(input, output);
 		assert.equal(output.constructor, undefined);
+		assert.equal(Object.getPrototypeOf(output), null);
 
 		output.list.push('howdy');
 		assert.deepEqual(input.list, [1, 2, 3]);

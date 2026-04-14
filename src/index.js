@@ -12,7 +12,7 @@ export function klona(x) {
 				}
 			}
 		} else {
-			tmp = {}; // null
+			tmp = (x.constructor === undefined) ? Object.create(null) : {};
 			for (k in x) {
 				if (k === '__proto__') {
 					Object.defineProperty(tmp, k, {
