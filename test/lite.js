@@ -17,3 +17,4 @@ suites.Arrays(klona);
 suites.Functions(klona);
 suites.Pollutions(klona);
 suites.Classes(klona);
+suites.Dicts(klona);
