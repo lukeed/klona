@@ -3,13 +3,17 @@ export function klona(val) {
 
 	if (Array.isArray(val)) {
 		out = Array(k=val.length);
-		while (k--) out[k] = (tmp=val[k]) && typeof tmp === 'object' ? klona(tmp) : tmp;
+		while (k--) {
+			tmp = val[k];
+			out[k] = (tmp && typeof tmp === 'object') ? klona(tmp) : (tmp === undefined ? null : tmp);
+		}
 		return out;
 	}
 
 	if (Object.prototype.toString.call(val) === '[object Object]') {
 		out = {}; // null
 		for (k in val) {
+			if (val[k] === undefined) continue;
 			if (k === '__proto__') {
 				Object.defineProperty(out, k, {
 					value: klona(val[k]),
