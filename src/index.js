@@ -64,7 +64,7 @@ export function klona(x) {
 	}
 
 	if (str === '[object DataView]') {
-		return new x.constructor( klona(x.buffer) );
+		return new x.constructor( klona(x.buffer), x.byteOffset, x.byteLength );
 	}
 
 	if (str === '[object ArrayBuffer]') {

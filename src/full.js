@@ -29,7 +29,7 @@ export function klona(x) {
 	} else if (str === '[object RegExp]') {
 		tmp = new RegExp(x.source, x.flags);
 	} else if (str === '[object DataView]') {
-		tmp = new x.constructor( klona(x.buffer) );
+		tmp = new x.constructor( klona(x.buffer), x.byteOffset, x.byteLength );
 	} else if (str === '[object ArrayBuffer]') {
 		tmp = x.slice(0);
 	} else if (str.slice(-6) === 'Array]') {
