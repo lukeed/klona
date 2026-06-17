@@ -122,5 +122,24 @@ export default function(klona) {
 		assert.equal(output.getInt8(0), 4);
 	});
 
+	test('DataView :: byteOffset', () => {
+		const buf = new ArrayBuffer(8);
+		const all = new DataView(buf);
+		for (let i = 0; i < 8; i++) all.setInt8(i, i + 1); // 1..8
+
+		const input = new DataView(buf, 2, 4); // bytes 3,4,5,6
+		const output = klona(input);
+
+		assert.equal(output.byteOffset, 2);
+		assert.equal(output.byteLength, 4);
+		assert.equal(output.getInt8(0), 3);
+		assert.equal(output.getInt8(3), 6);
+		assert.deepEqual(input, output);
+
+		output.setInt8(0, 99);
+		assert.equal(input.getInt8(0), 3);
+		assert.equal(all.getInt8(2), 3);
+	});
+
 	test.run();
 }
