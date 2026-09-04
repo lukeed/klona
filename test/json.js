@@ -10,5 +10,6 @@ suites.Nully(klona);
 
 suites.Objects(klona);
 suites.Arrays(klona);
+suites.ToStringTag(klona);
 
 suites.Pollutions(klona);

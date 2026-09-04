@@ -3,7 +3,7 @@ export function klona(x) {
 
 	var k, tmp, str=Object.prototype.toString.call(x);
 
-	if (str === '[object Object]') {
+	if (str === '[object Object]' || (x && (x.constructor === Object || x.constructor == null))) {
 		if (x.constructor !== Object && typeof x.constructor === 'function') {
 			tmp = new x.constructor();
 			for (k in x) {
