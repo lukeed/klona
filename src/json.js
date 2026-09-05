@@ -7,7 +7,7 @@ export function klona(val) {
 		return out;
 	}
 
-	if (Object.prototype.toString.call(val) === '[object Object]') {
+	if (Object.prototype.toString.call(val) === '[object Object]' || (val && (val.constructor === Object || val.constructor == null))) {
 		out = {}; // null
 		for (k in val) {
 			if (k === '__proto__') {

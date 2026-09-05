@@ -13,6 +13,7 @@ suites.RegExps(klona);
 
 suites.Objects(klona);
 suites.Arrays(klona);
+suites.ToStringTag(klona);
 
 suites.Functions(klona);
 suites.Pollutions(klona);

@@ -10,7 +10,7 @@ export function klona(x) {
 
 	var i=0, k, list, tmp, str=Object.prototype.toString.call(x);
 
-	if (str === '[object Object]') {
+	if (str === '[object Object]' || (x && (x.constructor === Object || x.constructor == null))) {
 		tmp = Object.create(x.__proto__ || null);
 	} else if (str === '[object Array]') {
 		tmp = Array(x.length);
