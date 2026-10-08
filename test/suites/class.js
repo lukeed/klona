@@ -4,6 +4,31 @@ import * as assert from 'assert';
 export default function (klona) {
 	const  Classes = suite('class');
 
+	Classes('own hasOwnProperty field', () => {
+		class Model {
+			constructor(data) {
+				Object.assign(this, data);
+			}
+		}
+		const input = new Model({ hasOwnProperty: 'field', nested: { value: 1 } });
+		const output = klona(input);
+		assert.deepStrictEqual(output, input);
+		assert.notStrictEqual(output.nested, input.nested);
+	});
+
+	Classes('overridden hasOwnProperty method', () => {
+		class Model {
+			hasOwnProperty() {
+				return false;
+			}
+		}
+		const input = new Model();
+		input.nested = { value: 1 };
+		const output = klona(input);
+		assert.deepStrictEqual(output, input);
+		assert.notStrictEqual(output.nested, input.nested);
+	});
+
 	Classes('class', () => {
 		class Foobar {}
 		const input = new Foobar();
