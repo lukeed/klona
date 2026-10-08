@@ -3,7 +3,7 @@ export function klona(val) {
 
 	if (Array.isArray(val)) {
 		out = Array(k=val.length);
-		while (k--) out[k] = (tmp=val[k]) && typeof tmp === 'object' ? klona(tmp) : tmp;
+		while (k--) if (k in val) out[k] = (tmp=val[k]) && typeof tmp === 'object' ? klona(tmp) : tmp;
 		return out;
 	}
 

@@ -32,7 +32,7 @@ export function klona(x) {
 	if (str === '[object Array]') {
 		k = x.length;
 		for (tmp=Array(k); k--;) {
-			tmp[k] = klona(x[k]);
+			if (k in x) tmp[k] = klona(x[k]);
 		}
 		return tmp;
 	}
