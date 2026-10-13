@@ -8,7 +8,7 @@ function set(obj, key, val) {
 export function klona(x) {
 	if (typeof x !== 'object') return x;
 
-	var i=0, k, list, tmp, str=Object.prototype.toString.call(x);
+	var i=0, k, list, tmp, view=false, str=Object.prototype.toString.call(x);
 
 	if (str === '[object Object]') {
 		tmp = Object.create(x.__proto__ || null);
@@ -36,6 +36,7 @@ export function klona(x) {
 		// ArrayBuffer.isView(x)
 		// ~> `new` bcuz `Buffer.slice` => ref
 		tmp = new x.constructor(x);
+		view = true;
 	}
 
 	if (tmp) {
@@ -44,7 +45,9 @@ export function klona(x) {
 		}
 
 		for (i=0, list=Object.getOwnPropertyNames(x); i < list.length; i++) {
-			if (Object.hasOwnProperty.call(tmp, k=list[i]) && tmp[k] === x[k]) continue;
+			k = list[i];
+			// Typed array elements were copied by the constructor above.
+			if (view && k === String(+k)) continue;
 			set(tmp, k, Object.getOwnPropertyDescriptor(x, k));
 		}
 	}
