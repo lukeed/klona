@@ -25,7 +25,7 @@ export function klona(x) {
 			tmp.set(klona(key), klona(val));
 		});
 	} else if (str === '[object Date]') {
-		tmp = new Date(+x);
+		tmp = new Date(x);
 	} else if (str === '[object RegExp]') {
 		tmp = new RegExp(x.source, x.flags);
 	} else if (str === '[object DataView]') {
