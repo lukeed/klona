@@ -54,7 +54,7 @@ export function klona(x) {
 	}
 
 	if (str === '[object Date]') {
-		return new Date(+x);
+		return new Date(x);
 	}
 
 	if (str === '[object RegExp]') {
