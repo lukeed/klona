@@ -58,5 +58,35 @@ export default function (klona) {
 		assert.equal(output.method(), 'foo');
 	});
 
+	Objects('spoofed Symbol.toStringTag', () => {
+		// A plain object must be deep-cloned no matter its tag (#54).
+		// Before the fix, a 'Map' tag crashed (`x.forEach is not a function`)
+		// and unknown tags returned the input by reference.
+		const map = { a: 1, [Symbol.toStringTag]: 'Map' };
+		const out1 = klona(map);
+
+		assert.notEqual(out1, map);
+		assert.equal(out1.a, 1);
+
+		out1.a = 99;
+		assert.equal(map.a, 1);
+
+		const err = { a: 1, [Symbol.toStringTag]: 'Error' };
+		const out2 = klona(err);
+
+		assert.notEqual(out2, err);
+		assert.equal(out2.a, 1);
+
+		out2.a = 99;
+		assert.equal(err.a, 1);
+
+		// nested spoofed objects are cloned too
+		const nested = { inner: { a: 1, [Symbol.toStringTag]: 'Set' } };
+		const out3 = klona(nested);
+
+		assert.notEqual(out3.inner, nested.inner);
+		assert.equal(out3.inner.a, 1);
+	});
+
 	Objects.run();
 }
