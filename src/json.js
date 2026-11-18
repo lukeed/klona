@@ -7,7 +7,9 @@ export function klona(val) {
 		return out;
 	}
 
-	if (Object.prototype.toString.call(val) === '[object Object]') {
+	// A plain object can never be a genuine Map/Set/Date/...,
+	// so a spoofed `Symbol.toStringTag` must not change its dispatch (#54).
+	if (Object.prototype.toString.call(val) === '[object Object]' || (val && (val.constructor === Object || val.constructor == null))) {
 		out = {}; // null
 		for (k in val) {
 			if (k === '__proto__') {

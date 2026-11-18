@@ -10,6 +10,12 @@ export function klona(x) {
 
 	var i=0, k, list, tmp, str=Object.prototype.toString.call(x);
 
+	// A plain object can never be a genuine Map/Set/Date/...,
+	// so a spoofed `Symbol.toStringTag` must not change its dispatch (#54).
+	if (str !== '[object Object]' && x && (x.constructor === Object || x.constructor == null)) {
+		str = '[object Object]';
+	}
+
 	if (str === '[object Object]') {
 		tmp = Object.create(x.__proto__ || null);
 	} else if (str === '[object Array]') {
