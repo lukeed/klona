@@ -74,5 +74,25 @@ export default function (klona) {
 		assert.deepEqual(output.bar, [1, 2, 3]);
 	});
 
+	Descriptors('array with non-writable length', () => {
+		const input = [1, 2];
+		Object.defineProperty(input, 'length', { writable: false });
+
+		const output = klona(input);
+		assert.deepEqual(input, output);
+
+		assert.deepEqual(
+			Object.getOwnPropertyDescriptor(output, 'length'),
+			{
+				writable: false,
+				enumerable: false,
+				configurable: false,
+				value: 2
+			}
+		);
+
+		assert.throws(() => output.push(3), TypeError);
+	});
+
 	Descriptors.run();
 }
